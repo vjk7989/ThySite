@@ -1,149 +1,75 @@
-# GitHub Pages base-path repair final gate
+# Hosted CI formatting repair gate
 
 Date: 2026-09-22
 
-Status: **PASSED — green gate**
+Hosted failure: `35668856470`
+
+Status: **FAILED — gate closed**
 
 ## Scope
 
-Independent final rerun after the one-line Starlight favicon repair and regression update. The runner did not edit product, workflow, configuration, or test code.
+Independent verification of the single mechanical JSON formatting repair associated with hosted CI failure `35668856470`. The runner did not edit product, test, workflow, or artifact code; only this report was replaced.
 
-## Fresh build
+## Changed-path inspection
 
 ```powershell
-npm run build
+git status --short
+git diff -- docs/test-artifacts/github-pages-base-final-20260922/browser-results.json
 ```
 
-- Working directory: `G:\my-sitess\ThySite`
-- Exit code: `0`
-- Astro checks: `126` files, `0` errors, `0` warnings, `6` hints
-- Static output: `17` pages built
-- Existing nonfatal notices: Rolldown reported that `astro:head-inject` may not be preserved; the `i18n` collection was empty.
+- Before this report update, Git showed one modified path: `docs/test-artifacts/github-pages-base-final-20260922/browser-results.json`.
+- The displayed diff only changed JSON whitespace/layout: compact array formatting and a final newline.
+- No JSON values, keys, ordering, or recorded browser evidence changed in the inspected diff.
 
-## Focused deployment, base-path/favicon, English, and brand tests
+## JSON parsing
 
 ```powershell
-node --test tests/github-pages-deployment.test.mjs tests/github-pages-base-path.test.mjs tests/english-only.test.mjs tests/brand-foundation.test.mjs
-```
-
-- Exit code: `0`
-- Tests: `33` total, `33` passed, `0` failed, `0` skipped, `0` cancelled, `0` todo
-
-## Full Node test suite
-
-```powershell
-node --test tests/*.test.mjs
+node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('PACKAGE_JSON_PARSE=OK')"
+node -e "JSON.parse(require('fs').readFileSync('docs/test-artifacts/github-pages-base-final-20260922/browser-results.json','utf8')); console.log('BROWSER_RESULTS_JSON_PARSE=OK')"
 ```
 
 - Exit code: `0`
-- Tests: `42` total, `42` passed, `0` failed, `0` skipped, `0` cancelled, `0` todo
+- `package.json`: parsed successfully.
+- `browser-results.json`: parsed successfully.
 
-## Route and content smoke test
+## Targeted formatting verification
 
 ```powershell
-npm run test:smoke
+node node_modules/prettier/bin/prettier.cjs --check -- docs/test-artifacts/github-pages-base-final-20260922/browser-results.json
 ```
 
 - Exit code: `0`
-- Checks: `25` total, `25` passed, `0` failed
-- Ten rendered English routes returned `200` with expected content.
-- Fifteen removed locale-boundary routes returned the expected `404`.
+- Result: the repaired JSON file uses Prettier formatting.
 
-## Authoritative changed-file formatting and diff validation
+## Required repository-wide pinned-pnpm formatting check
 
-The changed set was derived from tracked modified/added files and untracked files, excluding deleted paths and filtering to Prettier-supported text extensions.
+The command used the verified direct pnpm `12.5.1` entry point with `COREPACK_HOME`, pnpm store, npm cache, XDG cache, and temp directories under `G:\my-sitess`.
 
 ```powershell
-node node_modules/prettier/bin/prettier.cjs --check -- <20 Git-derived changed text files>
-git diff --check
+node G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs format:check
 ```
 
-- Prettier exit code: `0`; all `20` changed text files matched formatting rules.
-- Diff-check exit code: `0`; no whitespace errors were found.
-- Git emitted informational LF-to-CRLF working-copy warnings; these checks did not modify files.
+- Exit code: `1`
+- pnpm version: `12.5.1`
+- pnpm first synchronized `455` packages from the project-contained store/cache configuration and successfully ran the permitted `esbuild@0.28.2` postinstall.
+- Script executed: `prettier --check .`
+- Result: `Code style issues found in 117 files.`
+- The repaired `docs/test-artifacts/github-pages-base-final-20260922/browser-results.json` was not among the reported failures.
+- Reported files span existing repository configuration, documentation, source, content, and view files, including `.github/dependabot.yml`, `.prettierrc`, `README.md`, `process-html.mjs`, numerous `src/**` files, `tsconfig.json`, and `vercel.json`.
 
-## Workflow YAML validation
+## Checks not run
 
-PyYAML `6.0.3` parsed each workflow with `PYTHONPYCACHEPREFIX` under `G:\my-sitess`.
+The required full-format check failed, so the runner stopped immediately without running:
 
-```powershell
-python -c "from pathlib import Path; import yaml; ... yaml.safe_load(...)"
-```
+- `git diff --check`
+- Final formatting-only diff classification beyond the already inspected JSON path
+- Focused tests
+- Full Node test suite
+- Production build
+- Route/content smoke tests
 
-- Exit code: `0`
-- Parsed workflows: `3` of `3`
-- Files: `ci.yml`, `dependabot-format.yml`, `deploy-pages.yml`
-
-## Exhaustive simulated `/ThySite` resource resolution
-
-An in-memory HTML-aware Node scanner resolved built `href`, `src`, `poster`, `srcset`, inline-style, style-block, and CSS `url()` references against the simulated project deployment.
-
-- Exit code: `0`
-- HTML files: `17`
-- CSS files: `8`
-- Local references: `419`
-- Unique local endpoints: `75`
-- References outside `/ThySite`: `0`
-- Missing endpoints: `0`
-- The Starlight favicon now resolves without a duplicate base prefix.
-
-## Local browser verification
-
-Because no interactive Codex browser surface was available, the runner used the installed Google Chrome `153.0.8010.53` in headless mode through the Chrome DevTools Protocol. No software was installed. The built output was copied to a project-contained server root and served at `http://127.0.0.1:4177/ThySite/`.
-
-### Viewports and rendering
-
-- Desktop: `1440 × 1000`
-  - Buckleson wordmark visible.
-  - Stylesheet and scripts loaded.
-  - Restored light-mode body background: `rgb(255, 255, 255)`.
-  - Horizontal overflow: `false`.
-- Mobile: `390 × 844`
-  - Buckleson wordmark and responsive menu visible.
-  - Stylesheet and scripts loaded.
-  - Body background: `rgb(255, 255, 255)`.
-  - Horizontal overflow: `false`.
-
-The desktop and mobile screenshots were also visually inspected and showed a styled, nonblank, responsive page.
-
-### Network, navigation, and runtime
-
-- Browser audit exit code: `0`
-- Local network responses observed: `200`
-- CSS/JavaScript response observations: `77`, covering `7` unique built CSS/JavaScript assets; all returned `200`.
-- Internal navigation targets checked: `6`
-  - `/ThySite/`
-  - `/ThySite/products/`
-  - `/ThySite/services/`
-  - `/ThySite/blog/`
-  - `/ThySite/contact/`
-  - `/ThySite/#`
-- Network loading failures: `0`
-- Local responses with HTTP status `400` or higher: `0`
-- Page exceptions: `0`
-- Console errors: `0`
-- Browser log errors: `0`
-
-### Theme behavior
-
-- Dark-theme control applied the `dark` state: passed.
-- Dark state persisted after reload: passed.
-- Light-theme control restored the light state: passed.
-- Light state persisted after reload: passed.
-
-### Browser artifacts
-
-Artifacts are under `docs/test-artifacts/github-pages-base-final-20260922/`:
-
-- `browser-results.json`
-- `desktop-light.png` (initial system-preference render)
-- `desktop-dark.png`
-- `desktop-restored.png` (verified white/violet light render)
-- `mobile-light.png`
-- `server-root/ThySite/` (the exact staged project-path build)
-
-The temporary HTTP server and the dedicated headless Chrome profile processes were stopped after verification.
+These checks remain required after the repository-wide formatting gate is resolved or the project explicitly establishes and accepts a narrower authoritative formatting scope.
 
 ## Gate decision
 
-The GitHub Pages base-path repair is green. Build, focused and full tests, smoke routes, formatting, diff validation, workflow parsing, exhaustive resource resolution, and desktop/mobile browser checks all completed with observed zero exit codes and no unresolved failures.
+The mechanical JSON repair itself parses and passes targeted Prettier validation, and its inspected diff is formatting-only. However, the explicitly required full `pnpm format:check` command exits nonzero with 117 reported files. Under the green-gate policy, hosted CI repair verification remains closed and no later checks were run.

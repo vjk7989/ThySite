@@ -5,10 +5,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 dark lenis",
     "bodyBg": "oklch(0.269 0 0)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      1440,
-      1000
-    ],
+    "viewport": [1440, 1000],
     "scrollWidth": 1440,
     "overflow": false,
     "wordmark": {
@@ -45,9 +42,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
@@ -61,10 +56,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 default lenis",
     "bodyBg": "rgb(255, 255, 255)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      390,
-      844
-    ],
+    "viewport": [390, 844],
     "scrollWidth": 390,
     "overflow": false,
     "wordmark": {
@@ -101,9 +93,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
@@ -117,10 +107,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis dark",
     "bodyBg": "oklch(0.269 0 0)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      1440,
-      1000
-    ],
+    "viewport": [1440, 1000],
     "scrollWidth": 1440,
     "overflow": false,
     "wordmark": {
@@ -157,9 +144,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
@@ -173,10 +158,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis dark",
     "bodyBg": "oklch(0.269 0 0)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      1440,
-      1000
-    ],
+    "viewport": [1440, 1000],
     "scrollWidth": 1440,
     "overflow": false,
     "wordmark": {
@@ -213,9 +195,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
@@ -229,10 +209,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis light default",
     "bodyBg": "rgb(255, 255, 255)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      1440,
-      1000
-    ],
+    "viewport": [1440, 1000],
     "scrollWidth": 1440,
     "overflow": false,
     "wordmark": {
@@ -269,9 +246,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
@@ -285,10 +260,7 @@
     "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 default lenis",
     "bodyBg": "rgb(255, 255, 255)",
     "htmlBg": "rgba(0, 0, 0, 0)",
-    "viewport": [
-      1440,
-      1000
-    ],
+    "viewport": [1440, 1000],
     "scrollWidth": 1440,
     "overflow": false,
     "wordmark": {
@@ -325,9 +297,7 @@
         "href": "http://127.0.0.1:4177/ThySite/#"
       }
     ],
-    "styles": [
-      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"
-    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
     "scripts": [
       "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
       "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
