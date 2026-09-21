@@ -64,7 +64,7 @@ const appleTouchIcon = await getImage({
 <meta name="twitter:card" content="summary_large_image" />
 <meta
   property="twitter:domain"
-  content={Astro.site?.hostname ?? 'screwfast.uk'}
+  content={Astro.site?.hostname ?? new URL(SITE.url).hostname}
 />
 <meta property="twitter:url" content={metadata.canonical} />
 <meta name="twitter:title" content={metadata.ogTitle} />
@@ -79,4 +79,4 @@ const appleTouchIcon = await getImage({
 <meta name="mobile-web-app-capable" content="yes" />
 <link href={appleTouchIcon.src} rel="apple-touch-icon" />
 <link href={appleTouchIcon.src} rel="shortcut icon" />
-<meta name="theme-color" content="#facc15" />
+<meta name="theme-color" content="#8f00ff" />

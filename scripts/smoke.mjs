@@ -1,10 +1,9 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, isAbsolute, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const DIST = resolve(new URL('../dist/', import.meta.url).pathname);
-// Marketing routes exist once per locale (src/pages/ vs src/pages/fr/).
-const LOCALE_PREFIXES = ['', '/fr'];
+const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
 const MARKETING_ROUTES = [
   '/',
   '/products/',
@@ -15,27 +14,35 @@ const MARKETING_ROUTES = [
   '/insights/insight-1/',
   '/contact/',
 ];
-const ROUTES = [
-  ...LOCALE_PREFIXES.flatMap(prefix =>
-    MARKETING_ROUTES.map(route => `${prefix}${route}`)
-  ),
-  '/404',
+const REMOVED_LOCALE_ROUTES = [
+  '/fr/',
+  '/fr/contact/',
+  '/fr/products/',
+  '/fr/products/item-a765/',
+  '/fr/services/',
+  '/fr/blog/',
+  '/fr/blog/post-1/',
+  '/fr/insights/insight-1/',
   '/fr/404/',
+  '/fr/welcome-to-docs/',
+  '/de/welcome-to-docs/',
+  '/es/welcome-to-docs/',
+  '/fa/welcome-to-docs/',
+  '/ja/welcome-to-docs/',
+  '/zh-cn/welcome-to-docs/',
 ];
+const ROUTES = [...MARKETING_ROUTES, '/welcome-to-docs/', '/404'];
 
 // Cheap content assertions on top of the status check.
 const EXPECTATIONS = {
-  '/fr/': [
-    '<html lang="fr"',
-    '<meta property="og:locale" content="fr_FR"',
-    'hreflang="en" href="https://screwfast.uk"',
+  '/': [
+    '<html lang="en"',
+    '<meta property="og:locale" content="en_US"',
+    'https://www.buckleson.com',
   ],
-  '/': ['<html lang="en"', 'hreflang="fr" href="https://screwfast.uk/fr"'],
-  '/fr/404/': ['<html lang="fr"'],
+  '/welcome-to-docs/': ['Buckleson Platform Overview'],
   '/contact/': ['data-demo-form', 'data-demo-status'],
-  '/fr/contact/': ['data-demo-form', 'data-demo-status'],
   '/blog/post-1/': ['"@type":"BlogPosting"'],
-  '/fr/blog/post-1/': ['"inLanguage":"fr"'],
 };
 
 const MIME = {
@@ -116,6 +123,16 @@ async function run() {
         failed = true;
       } else {
         console.log(`OK   ${route} → ${res.status}`);
+      }
+    }
+
+    for (const route of REMOVED_LOCALE_ROUTES) {
+      const res = await fetch(`${base}${route}`);
+      if (res.status !== 404) {
+        console.error(`FAIL ${route} → expected 404, received ${res.status}`);
+        failed = true;
+      } else {
+        console.log(`OK   ${route} → 404`);
       }
     }
   } finally {

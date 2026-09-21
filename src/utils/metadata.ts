@@ -1,12 +1,6 @@
 import { SITE } from '@data/constants';
 import { getCopy } from '@/copy';
-import {
-  LOCALE_INFO,
-  MARKETING_LOCALES,
-  alternatePaths,
-  localePath,
-  type MarketingLocale,
-} from '@utils/locale';
+import { LOCALE_INFO, localePath, type MarketingLocale } from '@utils/locale';
 
 /**
  * Page-metadata module.
@@ -82,11 +76,7 @@ export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
   const ogDescription = input.description ?? copy.site.ogDescription;
   const canonical = absoluteUrl(pathname);
 
-  const paths = alternatePaths(pathname);
-  const alternates = MARKETING_LOCALES.map(alt => ({
-    hreflang: LOCALE_INFO[alt].lang,
-    href: absoluteUrl(paths[alt]),
-  }));
+  const alternates: PageMetadata['alternates'] = [];
 
   const publisher = {
     '@type': 'Organization',

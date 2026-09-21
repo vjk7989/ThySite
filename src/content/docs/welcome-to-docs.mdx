@@ -1,54 +1,41 @@
 ---
-title: ScrewFast Docs
+title: Buckleson Platform Overview
 head:
   - tag: title
-    content: ScrewFast Docs
-description: Explore ScrewFast's comprehensive documentation for an in-depth look at our premium tools and construction services.
+    content: Buckleson Platform Overview
+description: An English-language overview of Buckleson's trust and execution infrastructure for AI.
 template: splash
 editUrl: false
 lastUpdated: false
 next: false
 hero:
-  title: Documentation Hub
-  tagline: Your central hub for streamlined tool guidance, detailed service docs, and project support.
-  image:
-    alt: A ScrewFast's Logo
-    dark: ../../images/starlight/screwfast_hero.svg
-    light: ../../images/starlight/screwfast_hero_dark.svg
+  title: Trust and execution infrastructure for AI
+  tagline: Control access, reduce sensitive-data exposure, and create verifiable records of AI execution.
   actions:
-    - text: Get started
+    - text: Request an AI Safety Assessment
       icon: right-arrow
       variant: primary
-      link: /guides/getting-started/
-    - text: View on GitHub
-      icon: external
-      variant: minimal
-      link: https://github.com/mearashadowfax/ScrewFast
+      link: /contact/
 ---
 
 import '@styles/starlight_main.css';
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-<CardGrid stagger>
+Hyper-0x is Buckleson's in-house trust layer for AI infrastructure. It is designed to make execution more accountable; it does not make model output inherently correct or remove the need for conventional security controls.
 
-<Card title="Quick Start Guides" icon="document">
-  Get up and running swiftly with our straightforward and concise guides,
-  tailored for new users and seasoned experts alike.
+<CardGrid>
+  <Card title="Control with Hyper Tern" icon="setting">
+    Mediate model, tool, and infrastructure access through explicit routing and permission policies.
+  </Card>
+
+<Card title="Protect with Hyper-ABS" icon="shield">
+  Transform sensitive information before inference to help reduce unnecessary
+  raw-data exposure.
 </Card>
 
-<Card title="Tools & Equipment" icon="seti:eslint">
-  Discover the complete lineup of ScrewFast's superior quality tools and
-  equipment. Each subsection offers detailed specifications, usage instructions,
-  and maintenance tips.
-</Card>
-
-<Card title="Construction Services" icon="seti:puppet">
-  Discover the complete lineup of ScrewFast's superior quality tools and
-  equipment. Each subsection offers detailed specifications, usage instructions,
-  and maintenance tips.
-</Card>
-
-   <Card title="Advanced Topics" icon="seti:terraform">
-    Discover the complete lineup of ScrewFast's superior quality tools and equipment. Each subsection offers detailed specifications, usage instructions, and maintenance tips.
+  <Card title="Verify with Hyper-0x" icon="approve-check-circle">
+    Preserve attributable execution records for audit and operational review.
   </Card>
 </CardGrid>
+
+The platform addresses specific control, privacy, and auditability concerns. Additional controls remain necessary for prompt injection, hallucinations, supply-chain integrity, resource limits, sandboxing, and human review.

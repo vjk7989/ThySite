@@ -1,14 +1,14 @@
 import ogImageSrc from '@images/social.png';
 
 export const SITE = {
-  title: 'ScrewFast',
-  tagline: 'Top-quality Hardware Tools',
+  title: 'Buckleson',
+  tagline: 'Trust and execution infrastructure for AI',
   description:
-    'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.',
+    'Buckleson helps organizations, AI teams, developers, and individuals use AI more safely through controlled access, privacy-aware data handling, and verifiable execution.',
   description_short:
-    'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.',
-  url: 'https://screwfast.uk',
-  author: 'Emil Gulamov',
+    'Buckleson provides trust and execution infrastructure for safer AI adoption.',
+  url: 'https://www.buckleson.com',
+  author: 'Buckleson',
 };
 
 // Per-locale titles, descriptions and Open Graph text live in `src/copy/`;

@@ -1,0 +1,670 @@
+{
+  "light": {
+    "mobile": {
+      "innerWidth": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": ["Buckleson"],
+      "mobileMenuVisible": true,
+      "visibleThemeButtons": [
+        {
+          "label": "Dark Theme Toggle",
+          "value": "dark"
+        }
+      ],
+      "dark": false,
+      "storedTheme": "default",
+      "bodyBackground": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(17, 24, 39)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 255, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(115, 0, 230)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "rgb(143, 0, 255)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "tablet": {
+      "innerWidth": 768,
+      "clientWidth": 768,
+      "scrollWidth": 768,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Dark Theme Toggle",
+          "value": "dark"
+        }
+      ],
+      "dark": false,
+      "storedTheme": "default",
+      "bodyBackground": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(17, 24, 39)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 255, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(115, 0, 230)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "rgb(143, 0, 255)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "desktop": {
+      "innerWidth": 1440,
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Dark Theme Toggle",
+          "value": "dark"
+        }
+      ],
+      "dark": false,
+      "storedTheme": "default",
+      "bodyBackground": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(17, 24, 39)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 255, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(115, 0, 230)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "rgb(143, 0, 255)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "mobileControls": [
+      {
+        "index": 0,
+        "label": "Toggle navigation",
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 1,
+        "label": "Dark Theme Toggle",
+        "title": "Toggle theme",
+        "visible": true
+      },
+      {
+        "index": 2,
+        "label": "Light Theme Toggle",
+        "title": "Toggle theme",
+        "visible": false
+      },
+      {
+        "index": 3,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 4,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 5,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 6,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 7,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 8,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 9,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 10,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 11,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 12,
+        "label": null,
+        "title": "",
+        "visible": false
+      },
+      {
+        "index": 13,
+        "label": "Dark Theme Toggle",
+        "title": "Toggle theme",
+        "visible": false
+      },
+      {
+        "index": 14,
+        "label": "Light Theme Toggle",
+        "title": "Toggle theme",
+        "visible": false
+      },
+      {
+        "index": 15,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 16,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 17,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 18,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 19,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 20,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 21,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 22,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 23,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 24,
+        "label": null,
+        "title": "",
+        "visible": true
+      },
+      {
+        "index": 25,
+        "label": null,
+        "title": "",
+        "visible": true
+      }
+    ]
+  },
+  "theme": {
+    "darkAfterSwitch": {
+      "innerWidth": 1440,
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Light Theme Toggle",
+          "value": "default"
+        }
+      ],
+      "dark": true,
+      "storedTheme": "dark",
+      "bodyBackground": "oklch(0.269 0 0)",
+      "bodyColor": "oklch(0.922 0 0)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "oklch(0.674 0.2072 39.23)",
+        "backgroundImage": "none",
+        "color": "oklch(0.985 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.852 0.199 91.936)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.852 0.199 91.936)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "oklch(0.922 0 0)",
+        "backgroundImage": "url(\"http://127.0.0.1:4321/banner-pattern.svg\")",
+        "color": "oklch(0.922 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.7072 0.182 40.56)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "oklch(0.852 0.199 91.936)",
+        "backgroundImage": "none",
+        "color": "oklch(0.97 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "darkAfterReload": {
+      "innerWidth": 1440,
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Light Theme Toggle",
+          "value": "default"
+        }
+      ],
+      "dark": true,
+      "storedTheme": "dark",
+      "bodyBackground": "oklch(0.269 0 0)",
+      "bodyColor": "oklch(0.922 0 0)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "oklch(0.674 0.2072 39.23)",
+        "backgroundImage": "none",
+        "color": "oklch(0.985 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.852 0.199 91.936)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.852 0.199 91.936)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "oklch(0.922 0 0)",
+        "backgroundImage": "url(\"http://127.0.0.1:4321/banner-pattern.svg\")",
+        "color": "oklch(0.922 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "oklch(0.7072 0.182 40.56)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "oklch(0.852 0.199 91.936)",
+        "backgroundImage": "none",
+        "color": "oklch(0.97 0 0)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "lightAfterSwitchBack": {
+      "innerWidth": 1440,
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Dark Theme Toggle",
+          "value": "dark"
+        }
+      ],
+      "dark": false,
+      "storedTheme": "default",
+      "bodyBackground": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(17, 24, 39)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 255, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(115, 0, 230)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "rgb(143, 0, 255)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    },
+    "lightAfterReload": {
+      "innerWidth": 1440,
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "noHorizontalOverflow": true,
+      "wordmarkVisible": true,
+      "wordmarkText": "Buckleson",
+      "visibleNavLabels": [
+        "Buckleson",
+        "Home",
+        "Platform",
+        "Solutions",
+        "Insights",
+        "Contact"
+      ],
+      "mobileMenuVisible": false,
+      "visibleThemeButtons": [
+        {
+          "label": "Dark Theme Toggle",
+          "value": "dark"
+        }
+      ],
+      "dark": false,
+      "storedTheme": "default",
+      "bodyBackground": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(17, 24, 39)",
+      "brand500": "#8f00ff",
+      "primaryCta": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 255, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "headingHighlight": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "star": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(143, 0, 255)",
+        "fill": "none"
+      },
+      "banner": {
+        "backgroundColor": "rgb(115, 0, 230)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "activeNav": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(115, 0, 230)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "wordmarkDot": {
+        "backgroundColor": "rgb(143, 0, 255)",
+        "backgroundImage": "none",
+        "color": "rgb(17, 24, 39)",
+        "fill": "rgb(0, 0, 0)"
+      },
+      "heroImage": {
+        "visible": true,
+        "complete": true,
+        "naturalWidth": 812,
+        "currentSrc": "http://127.0.0.1:4321/_astro/hero-image.DRPoHq2O_hcNvw.avif"
+      }
+    }
+  },
+  "focus": {
+    "tag": "A",
+    "text": "Skip to content",
+    "href": "#main-content",
+    "visible": true,
+    "rect": {
+      "x": 16,
+      "y": 16,
+      "width": 139.390625,
+      "height": 40
+    },
+    "outline": "rgb(16, 16, 16) auto 1px",
+    "boxShadow": "none",
+    "background": "rgb(115, 0, 230)",
+    "color": "rgb(255, 255, 255)"
+  },
+  "checks": {
+    "responsiveLight": true,
+    "responsiveNavigation": true,
+    "darkPreserved": true,
+    "lightRestored": true,
+    "focusVisible": true
+  }
+}

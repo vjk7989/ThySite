@@ -19,8 +19,9 @@ const { title, url, variant = 'orange', noArrow, ...rest } = Astro.props;
 
 const variants = {
   orange:
-    'text-neutral-50 bg-orange-400 hover:bg-orange-500 active:bg-orange-500',
-  yellow: 'text-neutral-800 bg-yellow-400 hover:bg-yellow-500',
+    'text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-700 dark:bg-orange-400 dark:text-neutral-50 dark:hover:bg-orange-500 dark:active:bg-orange-500',
+  yellow:
+    'text-white bg-brand-600 hover:bg-brand-700 dark:bg-yellow-400 dark:text-neutral-800 dark:hover:bg-yellow-500',
 };
 
 const classes = [

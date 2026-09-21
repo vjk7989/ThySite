@@ -44,13 +44,13 @@ export const GET: APIRoute = async () => {
   );
 
   const manifest = {
-    short_name: 'ScrewFast',
-    name: 'ScrewFast',
+    short_name: 'Buckleson',
+    name: 'Buckleson',
     icons,
     display: 'minimal-ui',
     id: '/',
     start_url: '/',
-    theme_color: '#FFEDD5',
+    theme_color: '#8F00FF',
     background_color: '#262626',
   };
 

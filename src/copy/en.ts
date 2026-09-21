@@ -3,9 +3,7 @@ import features from '@data/features.json';
 import pricing from '@data/pricing.json';
 
 /**
- * English copy table. This file defines the shape every other locale must
- * satisfy (see `Copy` in `./index.ts`), so a missing translation fails
- * `astro check` instead of leaking English onto a localised page.
+ * English copy table for the marketing site.
  *
  * Paths are unlocalised (`/products`, not `/fr/products`); callers run them
  * through `localePath()` from `@utils/locale`.
@@ -14,13 +12,13 @@ export const en = {
   site: {
     /** Default `<meta name="description">` when a page sets none. */
     description:
-      'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.',
+      'Buckleson helps organizations, AI teams, developers, and individuals use AI more safely through controlled access, privacy-aware data handling, and verifiable execution.',
     /** schema.org `WebSite.description` in every page's `isPartOf`. */
     descriptionShort:
-      'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.',
-    ogTitle: 'ScrewFast: Hardware Tools & Construction Services',
+      'Buckleson provides trust and execution infrastructure for safer AI adoption.',
+    ogTitle: 'Buckleson: Trust and Execution Infrastructure for AI',
     ogDescription:
-      "Equip your projects with ScrewFast's top-quality hardware tools and expert construction services. Trusted by industry leaders, ScrewFast offers simplicity, affordability, and reliability. Experience the difference with user-centric design and cutting-edge tools. Start exploring now!",
+      'Control AI access, reduce sensitive-data exposure, and create verifiable execution records with Buckleson and Hyper-0x.',
   },
 
   layout: {
@@ -36,9 +34,9 @@ export const en = {
     /** Labels for `navLinks` in `@data/navigation`, keyed by id. */
     labels: {
       home: 'Home',
-      products: 'Products',
-      services: 'Services',
-      blog: 'Blog',
+      products: 'Platform',
+      services: 'Solutions',
+      blog: 'Insights',
       contact: 'Contact',
     },
     footer: {
@@ -196,7 +194,7 @@ export const en = {
     banner: 'Explore ScrewFast on GitHub',
     hero: {
       title:
-        'Equip Your Projects with <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>',
+        'Equip Your Projects with <span class="text-brand-500 dark:text-yellow-400">ScrewFast</span>',
       subTitle:
         'Top-quality hardware tools and expert construction services for every project need.',
       primaryBtn: 'Start Exploring',
@@ -218,7 +216,7 @@ export const en = {
     },
     featuresNavs: {
       title:
-        'Customize <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>\'s offerings to perfectly suit your hardware and construction needs.',
+        'Customize <span class="text-brand-500 dark:text-yellow-400">ScrewFast</span>\'s offerings to perfectly suit your hardware and construction needs.',
       tabs: {
         tools: {
           heading: 'Cutting-Edge Tools',

@@ -50,7 +50,7 @@ export const footerSections: {
 export const socialLinks = {
   facebook: 'https://www.facebook.com/',
   x: 'https://twitter.com/',
-  github: 'https://github.com/mearashadowfax/ScrewFast',
+  github: 'https://github.com/vjk7989/ThySite',
   google: 'https://www.google.com/',
   slack: 'https://slack.com/',
 };

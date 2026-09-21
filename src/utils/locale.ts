@@ -1,7 +1,7 @@
 /**
  * Marketing-site locale module.
  *
- * Owns everything the marketing pages (`src/pages/` and `src/pages/fr/`)
+ * Owns the English marketing locale contract.
  * need to know about locales: which ones exist, how to resolve the current
  * one from a request, how to localise a path, and how to find the same page
  * in another locale. Nothing else in the codebase should parse `/fr` out of
@@ -13,7 +13,7 @@
  * Every function here is pure so it can be unit-tested without Astro.
  */
 
-export const MARKETING_LOCALES = ['en', 'fr'] as const;
+export const MARKETING_LOCALES = ['en'] as const;
 export type MarketingLocale = (typeof MARKETING_LOCALES)[number];
 
 export const DEFAULT_LOCALE: MarketingLocale = 'en';
@@ -45,13 +45,6 @@ export const LOCALE_INFO: Record<
     ogLocale: 'en_US',
     inLanguage: 'en-US',
     intl: 'en-US',
-  },
-  fr: {
-    label: 'Français',
-    lang: 'fr',
-    ogLocale: 'fr_FR',
-    inLanguage: 'fr',
-    intl: 'fr-FR',
   },
 };
 
