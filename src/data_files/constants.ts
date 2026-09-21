@@ -7,7 +7,7 @@ export const SITE = {
     'Buckleson helps organizations, AI teams, developers, and individuals use AI more safely through controlled access, privacy-aware data handling, and verifiable execution.',
   description_short:
     'Buckleson provides trust and execution infrastructure for safer AI adoption.',
-  url: 'https://www.buckleson.com',
+  url: 'https://vjk7989.github.io/ThySite',
   author: 'Buckleson',
 };
 

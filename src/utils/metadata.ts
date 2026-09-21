@@ -1,6 +1,7 @@
 import { SITE } from '@data/constants';
 import { getCopy } from '@/copy';
 import { LOCALE_INFO, localePath, type MarketingLocale } from '@utils/locale';
+import { sitePath } from '@utils/paths';
 
 /**
  * Page-metadata module.
@@ -56,9 +57,10 @@ export interface PageMetadata {
   jsonLd: Record<string, unknown>;
 }
 
-/** Absolute URL on the marketing site; the root has no trailing slash. */
+/** Absolute URL on the deployed marketing site, without a trailing slash. */
 export function absoluteUrl(path: string): string {
-  return path === '/' ? SITE.url : `${SITE.url}${path}`;
+  const url = new URL(sitePath(path), new URL(SITE.url).origin).href;
+  return url.replace(/\/$/, '');
 }
 
 export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
@@ -81,7 +83,7 @@ export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
   const publisher = {
     '@type': 'Organization',
     name: SITE.title,
-    logo: { '@type': 'ImageObject', url: `${SITE.url}/favicon.ico` },
+    logo: { '@type': 'ImageObject', url: absoluteUrl('/favicon.ico') },
   };
 
   let jsonLd: Record<string, unknown>;

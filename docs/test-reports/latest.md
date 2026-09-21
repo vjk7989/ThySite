@@ -1,53 +1,149 @@
-# CI pnpm-Version Alignment Gate Report
+# GitHub Pages base-path repair final gate
 
-Date: 2026-09-22  
-Gate status: **PASS**
+Date: 2026-09-22
 
-## Verification results
+Status: **PASSED — green gate**
 
-| Order | Exact command                                                                                                 | Exit | Result                                                                                             |
-| ----- | ------------------------------------------------------------------------------------------------------------- | ---: | -------------------------------------------------------------------------------------------------- |
-| 1     | `node --test tests/github-pages-deployment.test.mjs`                                                          |    0 | 8 passed, 0 failed, 0 skipped, 0 cancelled                                                         |
-| 2     | `node --test tests/*.test.mjs`                                                                                |    0 | 35 passed, 0 failed, 0 skipped, 0 cancelled                                                        |
-| 3     | `node G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs --version`                                     |    0 | `12.5.1`                                                                                           |
-| 4     | `node <pnpm.mjs> install --frozen-lockfile --store-dir G:\my-sitess\.cache\pnpm-store --reporter=append-only` |    0 | Fresh isolated install completed with 455 packages; 455 reused and 0 downloaded                    |
-| 5     | Git-derived `node node_modules/prettier/bin/prettier.cjs --check --ignore-unknown -- <paths>`                 |    0 | 4 formattable changed files checked; all matched files use Prettier style                          |
-| 6     | `git diff --check`                                                                                            |    0 | No whitespace-error diagnostics                                                                    |
-| 7     | `npm run build`                                                                                               |    0 | Astro check: 124 files, 0 errors, 0 warnings, 6 hints; 17 pages built                              |
-| 8     | `npm run test:smoke`                                                                                          |    0 | 25/25 routes passed: 10 expected 200 and 15 expected 404                                           |
-| 9     | PyYAML `BaseLoader` structural parse of all pnpm/deployment workflows                                         |    0 | `ci.yml` job `build`; `dependabot-format.yml` job `format`; `deploy-pages.yml` jobs `build,deploy` |
+## Scope
 
-## Frozen-install evidence
+Independent final rerun after the one-line Starlight favicon repair and regression update. The runner did not edit product, workflow, configuration, or test code.
 
-The fresh isolated verification directory was `G:\my-sitess\.tmp\ci-pnpm-alignment-rerun-20260922-0350`. Before installation it contained copies of only:
+## Fresh build
 
-- `package.json`
-- `pnpm-lock.yaml`
-- `pnpm-workspace.yaml`
-
-All pnpm store, Corepack, npm cache, XDG cache, and temporary paths were under `G:\my-sitess`. The real repository's `node_modules` was not replaced.
-
-The source and isolated lockfiles matched both before and after installation:
-
-```text
-2A3907C9454FE7D084445963A4C5FFC98CD9CD8C46DEDFC66B3637DAA04B9477
+```powershell
+npm run build
 ```
 
-The install reported that the lockfile was up to date, skipped resolution, and completed using pnpm 12.5.1.
+- Working directory: `G:\my-sitess\ThySite`
+- Exit code: `0`
+- Astro checks: `126` files, `0` errors, `0` warnings, `6` hints
+- Static output: `17` pages built
+- Existing nonfatal notices: Rolldown reported that `astro:head-inject` may not be preserved; the `i18n` collection was empty.
 
-## Changed-scope evidence
+## Focused deployment, base-path/favicon, English, and brand tests
 
-The Git-derived formatting scope contained:
+```powershell
+node --test tests/github-pages-deployment.test.mjs tests/github-pages-base-path.test.mjs tests/english-only.test.mjs tests/brand-foundation.test.mjs
+```
 
-- `.github/workflows/ci.yml`
-- `.github/workflows/dependabot-format.yml`
-- `tests/github-pages-deployment.test.mjs`
-- `docs/test-reports/latest.md`
+- Exit code: `0`
+- Tests: `33` total, `33` passed, `0` failed, `0` skipped, `0` cancelled, `0` todo
 
-The focused regression test confirms every workflow using `pnpm/action-setup@v4` relies on `package.json`'s `packageManager: pnpm@12.5.1` as the only version source. The obsolete `version: 9` action inputs are absent.
+## Full Node test suite
 
-The build emitted the existing non-fatal `use astro:head-inject` directive warning and empty `i18n` content-collection warning.
+```powershell
+node --test tests/*.test.mjs
+```
 
-## Full-format baseline proof
+- Exit code: `0`
+- Tests: `42` total, `42` passed, `0` failed, `0` skipped, `0` cancelled, `0` todo
 
-`npm run format:check` exits 1 on 118 pre-existing files. The warning set has zero overlap with the 4 Git-derived changed paths and zero warning paths dirty against `HEAD`. The scoped changed-file check is green, so this is an unrelated repository baseline rather than a regression in this unit.
+## Route and content smoke test
+
+```powershell
+npm run test:smoke
+```
+
+- Exit code: `0`
+- Checks: `25` total, `25` passed, `0` failed
+- Ten rendered English routes returned `200` with expected content.
+- Fifteen removed locale-boundary routes returned the expected `404`.
+
+## Authoritative changed-file formatting and diff validation
+
+The changed set was derived from tracked modified/added files and untracked files, excluding deleted paths and filtering to Prettier-supported text extensions.
+
+```powershell
+node node_modules/prettier/bin/prettier.cjs --check -- <20 Git-derived changed text files>
+git diff --check
+```
+
+- Prettier exit code: `0`; all `20` changed text files matched formatting rules.
+- Diff-check exit code: `0`; no whitespace errors were found.
+- Git emitted informational LF-to-CRLF working-copy warnings; these checks did not modify files.
+
+## Workflow YAML validation
+
+PyYAML `6.0.3` parsed each workflow with `PYTHONPYCACHEPREFIX` under `G:\my-sitess`.
+
+```powershell
+python -c "from pathlib import Path; import yaml; ... yaml.safe_load(...)"
+```
+
+- Exit code: `0`
+- Parsed workflows: `3` of `3`
+- Files: `ci.yml`, `dependabot-format.yml`, `deploy-pages.yml`
+
+## Exhaustive simulated `/ThySite` resource resolution
+
+An in-memory HTML-aware Node scanner resolved built `href`, `src`, `poster`, `srcset`, inline-style, style-block, and CSS `url()` references against the simulated project deployment.
+
+- Exit code: `0`
+- HTML files: `17`
+- CSS files: `8`
+- Local references: `419`
+- Unique local endpoints: `75`
+- References outside `/ThySite`: `0`
+- Missing endpoints: `0`
+- The Starlight favicon now resolves without a duplicate base prefix.
+
+## Local browser verification
+
+Because no interactive Codex browser surface was available, the runner used the installed Google Chrome `153.0.8010.53` in headless mode through the Chrome DevTools Protocol. No software was installed. The built output was copied to a project-contained server root and served at `http://127.0.0.1:4177/ThySite/`.
+
+### Viewports and rendering
+
+- Desktop: `1440 × 1000`
+  - Buckleson wordmark visible.
+  - Stylesheet and scripts loaded.
+  - Restored light-mode body background: `rgb(255, 255, 255)`.
+  - Horizontal overflow: `false`.
+- Mobile: `390 × 844`
+  - Buckleson wordmark and responsive menu visible.
+  - Stylesheet and scripts loaded.
+  - Body background: `rgb(255, 255, 255)`.
+  - Horizontal overflow: `false`.
+
+The desktop and mobile screenshots were also visually inspected and showed a styled, nonblank, responsive page.
+
+### Network, navigation, and runtime
+
+- Browser audit exit code: `0`
+- Local network responses observed: `200`
+- CSS/JavaScript response observations: `77`, covering `7` unique built CSS/JavaScript assets; all returned `200`.
+- Internal navigation targets checked: `6`
+  - `/ThySite/`
+  - `/ThySite/products/`
+  - `/ThySite/services/`
+  - `/ThySite/blog/`
+  - `/ThySite/contact/`
+  - `/ThySite/#`
+- Network loading failures: `0`
+- Local responses with HTTP status `400` or higher: `0`
+- Page exceptions: `0`
+- Console errors: `0`
+- Browser log errors: `0`
+
+### Theme behavior
+
+- Dark-theme control applied the `dark` state: passed.
+- Dark state persisted after reload: passed.
+- Light-theme control restored the light state: passed.
+- Light state persisted after reload: passed.
+
+### Browser artifacts
+
+Artifacts are under `docs/test-artifacts/github-pages-base-final-20260922/`:
+
+- `browser-results.json`
+- `desktop-light.png` (initial system-preference render)
+- `desktop-dark.png`
+- `desktop-restored.png` (verified white/violet light render)
+- `mobile-light.png`
+- `server-root/ThySite/` (the exact staged project-path build)
+
+The temporary HTTP server and the dedicated headless Chrome profile processes were stopped after verification.
+
+## Gate decision
+
+The GitHub Pages base-path repair is green. Build, focused and full tests, smoke routes, formatting, diff validation, workflow parsing, exhaustive resource resolution, and desktop/mobile browser checks all completed with observed zero exit codes and no unresolved failures.

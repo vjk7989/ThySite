@@ -4,6 +4,7 @@ import { OG, SITE } from '@data/constants';
 import faviconSvgSrc from '@images/icon.svg';
 import faviconSrc from '@images/icon.png';
 import type { PageMetadata } from '@utils/metadata';
+import { sitePath } from '@utils/paths';
 
 /**
  * Emits the `<head>` tags for a page. All page-specific values come from
@@ -72,9 +73,14 @@ const appleTouchIcon = await getImage({
 <meta name="twitter:image" content={socialImage} />
 
 {/* Site-wide head chrome: manifest, sitemap, favicons, theme colour */}
-<link rel="manifest" href="/manifest.json" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link href="/favicon.ico" rel="icon" sizes="any" type="image/x-icon" />
+<link rel="manifest" href={sitePath('/manifest.json')} />
+<link rel="sitemap" href={sitePath('/sitemap-index.xml')} />
+<link
+  href={sitePath('/favicon.ico')}
+  rel="icon"
+  sizes="any"
+  type="image/x-icon"
+/>
 <link href={faviconSvg.src} rel="icon" type="image/svg+xml" sizes="any" />
 <meta name="mobile-web-app-capable" content="yes" />
 <link href={appleTouchIcon.src} rel="apple-touch-icon" />

@@ -5,7 +5,8 @@ import starlight from '@astrojs/starlight';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
-  site: 'https://www.buckleson.com',
+  site: 'https://vjk7989.github.io',
+  base: '/ThySite',
   image: {
     domains: ['images.unsplash.com'],
   },
@@ -42,14 +43,14 @@ export default defineConfig({
           tag: 'meta',
           attrs: {
             property: 'og:image',
-            content: 'https://www.buckleson.com/social.webp',
+            content: 'https://vjk7989.github.io/ThySite/social.webp',
           },
         },
         {
           tag: 'meta',
           attrs: {
             property: 'twitter:image',
-            content: 'https://www.buckleson.com/social.webp',
+            content: 'https://vjk7989.github.io/ThySite/social.webp',
           },
         },
       ],

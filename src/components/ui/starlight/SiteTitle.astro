@@ -2,10 +2,11 @@
 import BrandLogo from '@components/BrandLogo.astro';
 import docsLogo from '@images/starlight/docs_logo.svg?raw';
 import type { Props } from '@astrojs/starlight/props';
+import { sitePath } from '@utils/paths';
 
-const main = '/';
+const main = sitePath('/');
 const locale = Astro.props.locale ? Astro.props.locale + '/' : '';
-const docs = '/' + locale + 'welcome-to-docs/';
+const docs = sitePath('/' + locale + 'welcome-to-docs/');
 ---
 
 <span class="site-title flex">

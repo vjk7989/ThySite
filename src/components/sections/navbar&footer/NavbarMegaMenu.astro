@@ -51,6 +51,7 @@ const { locale, copy: t } = Astro.locals;
             <MegaMenuLink title={t.nav.labels[link.id]} />
           ) : (
             <NavLink
+              id={link.id}
               url={localePath(locale, link.path)}
               name={t.nav.labels[link.id]}
             />

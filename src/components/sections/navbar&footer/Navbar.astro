@@ -42,6 +42,7 @@ const { locale, copy: t } = Astro.locals;
         {/* Navigation links and Authentication component */}
         {navLinks.map(link => (
           <NavLink
+            id={link.id}
             url={localePath(locale, link.path)}
             name={t.nav.labels[link.id]}
           />

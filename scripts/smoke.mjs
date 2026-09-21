@@ -38,7 +38,7 @@ const EXPECTATIONS = {
   '/': [
     '<html lang="en"',
     '<meta property="og:locale" content="en_US"',
-    'https://www.buckleson.com',
+    'https://vjk7989.github.io/ThySite',
   ],
   '/welcome-to-docs/': ['Buckleson Platform Overview'],
   '/contact/': ['data-demo-form', 'data-demo-status'],

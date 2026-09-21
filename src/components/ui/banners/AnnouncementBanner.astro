@@ -1,5 +1,6 @@
 ---
 import Icon from '@components/ui/icons/Icon.astro';
+import { sitePath } from '@utils/paths';
 
 const { title, btnId, btnTitle, url } = Astro.props;
 const { copy: t } = Astro.locals;
@@ -20,7 +21,10 @@ const storageKey = `banner-dismissed:${btnId}`;
     role="region"
     aria-label={t.banner.region}
   >
-    <div class="rounded-xl bg-brand-600 bg-none bg-cover bg-center bg-no-repeat p-4 text-center shadow-xs dark:bg-neutral-200 dark:bg-[url('/banner-pattern.svg')]">
+    <div
+      class="banner-pattern rounded-xl bg-brand-600 bg-none bg-cover bg-center bg-no-repeat p-4 text-center shadow-xs dark:bg-neutral-200"
+      style={`--banner-pattern: url("${sitePath('/banner-pattern.svg')}")`}
+    >
       <div class="flex items-center justify-center">
         <div class="ml-auto">
           {title && (
@@ -74,3 +78,9 @@ const storageKey = `banner-dismissed:${btnId}`;
 
   customElements.define('astro-banner', AstroBanner);
 </script>
+
+<style>
+  :global(.dark) .banner-pattern {
+    background-image: var(--banner-pattern);
+  }
+</style>

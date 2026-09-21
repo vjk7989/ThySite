@@ -59,27 +59,27 @@ test('serializes deployments and exposes the deployed Pages URL', async () => {
   assert.match(workflow, /^\s+id:\s*deployment\s*$/m);
 });
 
-test('publishes the exact Buckleson custom domain through CNAME', async () => {
-  const cname = await source('public/CNAME');
-
-  assert.match(cname, /^www\.buckleson\.com\r?\n?$/);
+test('does not publish a CNAME while the Buckleson domain is unavailable', async () => {
+  await assert.rejects(source('public/CNAME'), { code: 'ENOENT' });
 });
 
-test('uses the custom-domain canonical URL without a GitHub project base path', async () => {
+test('targets the GitHub project site and repository base path', async () => {
   const [astroConfig, constants] = await Promise.all([
     source('astro.config.mjs'),
     source('src/data_files/constants.ts'),
   ]);
 
-  // Deployment assumes DNS for www.buckleson.com points at GitHub Pages.
-  // The public canonical must remain independent of the repository slug.
-  assert.match(astroConfig, /site:\s*'https:\/\/www\.buckleson\.com'/);
-  assert.match(constants, /url:\s*'https:\/\/www\.buckleson\.com'/);
-  assert.doesNotMatch(astroConfig, /^\s*base:\s*/m);
-  assert.doesNotMatch(
-    `${astroConfig}\n${constants}`,
-    /https:\/\/vjk7989\.github\.io(?:\/ThySite)?|base:\s*['"]\/ThySite\/?['"]/
-  );
+  assert.match(astroConfig, /site:\s*'https:\/\/vjk7989\.github\.io'/);
+  assert.match(astroConfig, /base:\s*'\/ThySite'/);
+  assert.match(constants, /url:\s*'https:\/\/vjk7989\.github\.io\/ThySite'/);
+  assert.doesNotMatch(`${astroConfig}\n${constants}`, /www\.buckleson\.com/);
+});
+
+test('smoke expectations use the deployed project URL', async () => {
+  const smoke = await source('scripts/smoke.mjs');
+
+  assert.match(smoke, /https:\/\/vjk7989\.github\.io\/ThySite/);
+  assert.doesNotMatch(smoke, /https:\/\/www\.buckleson\.com/);
 });
 
 test('pins the deployment package manager to the verified pnpm release', async () => {

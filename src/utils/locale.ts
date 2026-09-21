@@ -1,3 +1,5 @@
+import { sitePath, stripSiteBase } from '@utils/paths';
+
 /**
  * Marketing-site locale module.
  *
@@ -67,7 +69,10 @@ export function splitLocale(pathname: string): {
   locale: MarketingLocale;
   path: string;
 } {
-  const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const withoutBase = stripSiteBase(pathname);
+  const normalized = withoutBase.startsWith('/')
+    ? withoutBase
+    : `/${withoutBase}`;
   for (const locale of PREFIXED_LOCALES) {
     const prefix = `/${locale}`;
     if (normalized === prefix) return { locale, path: '/' };
@@ -104,9 +109,9 @@ export function resolveLocale(
 export function localePath(locale: MarketingLocale, path = '/'): string {
   if (path.startsWith('#') || /^[a-z]+:/i.test(path)) return path;
   const clean = path.startsWith('/') ? path : `/${path}`;
-  if (locale === DEFAULT_LOCALE) return clean;
-  if (clean === '/') return `/${locale}`;
-  return `/${locale}${clean}`;
+  if (locale === DEFAULT_LOCALE) return sitePath(clean);
+  if (clean === '/') return sitePath(`/${locale}`);
+  return sitePath(`/${locale}${clean}`);
 }
 
 /**

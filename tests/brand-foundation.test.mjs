@@ -125,11 +125,24 @@ test('uses a plain brand announcement in light mode and its existing dark image'
   assert.match(announcement, /\bbg-brand-600\b/);
   assert.match(announcement, /\bbg-none\b/);
   assert.match(announcement, /\bdark:bg-neutral-200\b/);
-  assert.match(announcement, /\bdark:bg-\[url\('\/banner-pattern\.svg'\)\]/);
+  assert.match(
+    announcement,
+    /import\s*\{\s*sitePath\s*\}\s*from\s*'@utils\/paths'/
+  );
+  assert.match(
+    announcement,
+    /style=\{`--banner-pattern: url\("\$\{sitePath\('\/banner-pattern\.svg'\)\}"\)`\}/
+  );
+  assert.match(
+    announcement,
+    /:global\(\.dark\) \.banner-pattern\s*\{\s*background-image:\s*var\(--banner-pattern\);\s*\}/
+  );
   assert.doesNotMatch(
     announcement,
     /(?:^|\s)bg-\[url\('\/banner-pattern\.svg'\)\]/
   );
+  assert.doesNotMatch(announcement, /\bdark:bg-\[url/);
+  assert.doesNotMatch(announcement, /background-image:\s*url\(/);
 });
 
 test('uses brand active navigation in light mode and orange in dark mode', async () => {

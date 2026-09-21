@@ -122,11 +122,12 @@ test('uses Buckleson for canonical, manifest, and Starlight site metadata', asyn
     ]
   );
 
-  assert.match(astroConfig, /site:\s*'https:\/\/www\.buckleson\.com'/);
+  assert.match(astroConfig, /site:\s*'https:\/\/vjk7989\.github\.io'/);
+  assert.match(astroConfig, /base:\s*'\/ThySite'/);
   assert.match(astroConfig, /title:\s*'Buckleson Platform'/);
   assert.doesNotMatch(astroConfig, /screwfast\.uk|ScrewFast/);
   assert.match(constants, /title:\s*'Buckleson'/);
-  assert.match(constants, /url:\s*'https:\/\/www\.buckleson\.com'/);
+  assert.match(constants, /url:\s*'https:\/\/vjk7989\.github\.io\/ThySite'/);
   assert.doesNotMatch(meta, /screwfast\.uk|ScrewFast/);
   assert.match(manifest, /short_name:\s*'Buckleson'/);
   assert.match(manifest, /name:\s*'Buckleson'/);
@@ -144,6 +145,8 @@ test('retains one English Buckleson platform overview with bounded claims', asyn
   assert.match(overview, /Hyper-ABS/);
   assert.match(overview, /Hyper-0x/);
   assert.match(overview, /Request an AI Safety Assessment/);
+  assert.match(overview, /^\s+link:\s*\/ThySite\/contact\/$/m);
+  assert.doesNotMatch(overview, /^\s+link:\s*\/contact\/$/m);
   assert.match(overview, /does not make model output inherently correct/i);
 });
 

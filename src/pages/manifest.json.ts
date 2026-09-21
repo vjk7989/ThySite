@@ -2,6 +2,7 @@ import type { APIRoute, ImageMetadata } from 'astro';
 import { getImage } from 'astro:assets';
 import icon from '@images/icon.png';
 import maskableIcon from '@images/icon-maskable.png';
+import { sitePath } from '@utils/paths';
 
 interface Favicon {
   purpose: 'any' | 'maskable' | 'monochrome';
@@ -48,8 +49,8 @@ export const GET: APIRoute = async () => {
     name: 'Buckleson',
     icons,
     display: 'minimal-ui',
-    id: '/',
-    start_url: '/',
+    id: sitePath('/'),
+    start_url: sitePath('/'),
     theme_color: '#8F00FF',
     background_color: '#262626',
   };
