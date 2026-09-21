@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -86,6 +86,48 @@ test('pins the deployment package manager to the verified pnpm release', async (
   const packageJson = JSON.parse(await source('package.json'));
 
   assert.equal(packageJson.packageManager, 'pnpm@12.5.1');
+});
+
+test('all pnpm setup workflows rely on packageManager as the only version source', async () => {
+  const workflowDirectory = resolve(ROOT, '.github/workflows');
+  const workflowNames = (await readdir(workflowDirectory))
+    .filter(name => /\.ya?ml$/i.test(name))
+    .sort();
+  const pnpmWorkflows = [];
+
+  for (const name of workflowNames) {
+    const workflow = await readFile(resolve(workflowDirectory, name), 'utf8');
+    const lines = workflow.split(/\r?\n/);
+
+    for (const [index, line] of lines.entries()) {
+      const setup = line.match(
+        /^(\s*)-?\s*uses:\s*pnpm\/action-setup@(\S+)\s*$/
+      );
+      if (!setup) continue;
+
+      pnpmWorkflows.push(name);
+      assert.equal(setup[2], 'v4', `${name} must use pnpm/action-setup@v4`);
+
+      const hasListMarker = /^\s*-\s+/.test(line);
+      const itemIndent = Math.max(0, setup[1].length - (hasListMarker ? 0 : 2));
+      const followingLines = lines.slice(index + 1);
+      const nextStep = followingLines.findIndex(candidate =>
+        new RegExp(`^\\s{${itemIndent}}-\\s+`).test(candidate)
+      );
+      const actionBlock = [
+        line,
+        ...followingLines.slice(0, nextStep === -1 ? undefined : nextStep),
+      ].join('\n');
+
+      assert.doesNotMatch(
+        actionBlock,
+        /^\s+version\s*:/m,
+        `${name} must take pnpm 12.5.1 from package.json, not action input`
+      );
+    }
+  }
+
+  assert.deepEqual(pnpmWorkflows.sort(), ['ci.yml', 'dependabot-format.yml']);
 });
 
 test('allows native dependency builds only for esbuild', async () => {
