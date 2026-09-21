@@ -81,3 +81,20 @@ test('uses the custom-domain canonical URL without a GitHub project base path', 
     /https:\/\/vjk7989\.github\.io(?:\/ThySite)?|base:\s*['"]\/ThySite\/?['"]/
   );
 });
+
+test('pins the deployment package manager to the verified pnpm release', async () => {
+  const packageJson = JSON.parse(await source('package.json'));
+
+  assert.equal(packageJson.packageManager, 'pnpm@12.5.1');
+});
+
+test('allows native dependency builds only for esbuild', async () => {
+  const workspace = await source('pnpm-workspace.yaml');
+
+  assert.match(workspace, /^allowBuilds:\r?\n  esbuild: true\r?\n?$/);
+  assert.doesNotMatch(
+    workspace,
+    /dangerouslyAllowAllBuilds\s*:\s*true|strictDepBuilds\s*:\s*false|ignoreScripts\s*:|(?:^|\n)\s*['"]?\*['"]?\s*:/,
+    'pnpm build policy must not bypass or wildcard dependency-script controls'
+  );
+});

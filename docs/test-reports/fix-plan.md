@@ -1,152 +1,151 @@
-# Final Light-Theme Visual Gate Fix Plan
+# Local pnpm 12 Verification Harness Fix Plan
 
 Date: 2026-09-22  
-Gate status: **CLOSED — rendered light-theme accents remain orange/yellow**
+Gate status: **CLOSED — repository checks pass, but clean install/build proof remains unrun**
 
-## Ranked root causes and smallest production fixes
+## Ranked root-cause analysis
 
-### P0 — The live hero uses the untouched default CTA variant
+### P0 — Local Corepack metadata points at a nonexistent pnpm entry file
 
-Unit 1 changed the `yellow` branch in
-`src/components/ui/buttons/PrimaryCTA.astro`, but the hero calls `PrimaryCTA`
-without a variant. Its actual `orange` default therefore still renders
-`bg-orange-400`, `hover:bg-orange-500`, and `active:bg-orange-500`.
-
-Change only the default branch to use the approved light-theme tokens while
-adding explicit dark overrides:
-
-```ts
-orange:
-  'text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-700 dark:text-neutral-50 dark:bg-orange-400 dark:hover:bg-orange-500 dark:active:bg-orange-500',
-```
-
-Keep the public variant names and all call sites unchanged. This fixes every
-default `PrimaryCTA` user without an API migration and preserves its previous
-dark appearance.
-
-### P1 — Homepage copy embeds light yellow classes
-
-`src/copy/en.ts` contains two HTML fragments with
-`text-yellow-500 dark:text-yellow-400`: the hero's highlighted `ScrewFast` text
-and the later feature-navigation heading.
-
-Replace only the light class in both fragments:
+The workspace-contained Corepack cache has the correct pnpm `12.5.1` package
+at:
 
 ```text
-text-brand-500 dark:text-yellow-400
+G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1
 ```
 
-Do not rewrite the words in this visual gate; the approved content replacement
-remains a later unit.
+Its generated `.corepack` metadata maps `pnpm` to `./bin/pnpm.cjs`, but the
+package actually contains `bin/pnpm.mjs`. Corepack 0.33.0 therefore fails with
+`MODULE_NOT_FOUND` before pnpm starts.
 
-### P2 — Rating icons hard-code yellow in both star components
+This is a local Corepack cache/launcher defect, not a repository defect:
 
-`src/components/ui/stars/FullStar.astro` and
-`src/components/ui/stars/HalfStar.astro` both use
-`text-yellow-500 dark:text-yellow-400`.
+- `package.json` correctly pins `pnpm@12.5.1`;
+- `pnpm-workspace.yaml` correctly allows only `esbuild` builds;
+- focused deployment tests pass 7/7;
+- the full Node suite passes 34/34; and
+- `pnpm-lock.yaml` is unchanged.
 
-Replace the light class with `text-brand-500` and retain
-`dark:text-yellow-400`. Do not remove the ratings or avatars in this unit; the
-content map already defers that proof-content change.
+### P1 — The verification harness depends unnecessarily on the broken wrapper
 
-### P3 — The announcement applies a yellow/orange asset in both themes
-
-`src/components/ui/banners/AnnouncementBanner.astro` applies
-`bg-[url('/banner-pattern.svg')]` without a theme prefix. The image is the
-yellow/orange pattern dominating the screenshots.
-
-Use a solid violet light surface and restore the existing image only in dark
-mode:
-
-```text
-bg-brand-600 bg-none ... dark:bg-neutral-200 dark:bg-[url('/banner-pattern.svg')]
-```
-
-Keep its existing white light-theme text/border and neutral dark-theme
-text/border classes. Do not change the banner copy or destination in this
-color-only fix.
-
-### P4 — The active navigation state remains orange
-
-The screenshots also show the active `Home` link in orange.
-`src/components/ui/links/NavLink.astro` adds `text-orange-400` at runtime while
-also adding `dark:text-orange-300`.
-
-Change only the light active class to `text-brand-600`; retain
-`dark:text-orange-300`. This prevents a visible orange exception in the same
-header being evaluated by the gate.
-
-## Failure-to-file mapping
-
-| Visual failure                     | File and current class/path                              | Minimal replacement                                                          |
-| ---------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Orange primary hero CTA            | `PrimaryCTA.astro`, default `orange` variant             | Light `bg-brand-600` with brand hover/active; explicit dark orange overrides |
-| Yellow hero highlight              | `copy/en.ts`, hero title HTML                            | `text-brand-500 dark:text-yellow-400`                                        |
-| Yellow later heading highlight     | `copy/en.ts`, feature-nav title HTML                     | `text-brand-500 dark:text-yellow-400`                                        |
-| Yellow rating stars                | `FullStar.astro` and `HalfStar.astro`                    | `text-brand-500 dark:text-yellow-400`                                        |
-| Yellow/orange announcement pattern | `AnnouncementBanner.astro`, unqualified background image | Violet/no-image in light; existing pattern restored with `dark:`             |
-| Orange active navigation           | `NavLink.astro`, runtime `classList.add`                 | `text-brand-600` in light; retain `dark:text-orange-300`                     |
-
-## Required test-author updates
-
-Update `tests/brand-foundation.test.mjs` without changing production code:
-
-1. Correct the CTA regression to inspect the live default `orange` branch,
-   requiring `bg-brand-600`, brand hover/active states, and explicit dark
-   orange restoration. Keep the existing AA contrast calculation for white on
-   `brand-600`.
-2. Add focused source assertions for both copy highlights, both star
-   components, the announcement's light/dark background split, and the active
-   navigation light/dark split.
-3. Assert that unprefixed light `text-yellow-500`, `text-orange-400`,
-   `bg-orange-400`, and the unqualified banner-pattern class no longer exist in
-   those targeted visual paths. Do not reject the corresponding `dark:`
-   classes.
-4. Keep tests scoped to the observed homepage chrome and accents. Do not add
-   assertions requiring content, ratings, images, pricing, or sections to be
-   replaced in this gate.
-
-## Verification sequence
-
-The test-runner must format only the changed production and test files, then
-record exact commands, exit codes, pass/fail counts, and artifact paths:
+The cached package's real ESM entry point is executable directly with Node. A
+read-only version probe has already demonstrated:
 
 ```powershell
-node --test tests/brand-foundation.test.mjs
+node 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs' --version
+```
+
+Result: exit code `0`, version `12.5.1`. pnpm downloaded its Windows native
+binary to
+`G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\pnpm-native.exe`, so the
+bootstrap and executable remain inside the required workspace boundary.
+
+## Smallest correction
+
+Do not change any tracked repository file. Replace only the local verification
+command prefix:
+
+```powershell
+$pnpmCli = 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs'
+node $pnpmCli <arguments>
+```
+
+Do not repair `.corepack`, create a fake `pnpm.cjs`, modify the system Corepack
+installation, activate a global package manager, or write a shim outside
+`G:\my-sitess`.
+
+If the cached package is later unavailable, the fallback is an isolated
+workspace-contained fetch of exact `pnpm@12.5.1` using npm with
+`npm_config_cache`, `TEMP`, and `TMP` under `G:\my-sitess`, followed by direct
+Node execution of its `bin/pnpm.mjs`. Do not use an unpinned `npx pnpm` or
+`latest`.
+
+## Clean frozen-install and build rerun
+
+1. Keep all generated state under `G:\my-sitess`:
+
+   ```powershell
+   $env:TEMP = 'G:\my-sitess\.tmp'
+   $env:TMP = 'G:\my-sitess\.tmp'
+   $env:PNPM_HOME = 'G:\my-sitess\.tools\pnpm-home'
+   $env:PNPM_STORE_DIR = 'G:\my-sitess\.cache\pnpm12-store'
+   $env:npm_config_cache = 'G:\my-sitess\.cache\npm'
+   $env:XDG_CACHE_HOME = 'G:\my-sitess\.cache\xdg'
+   $pnpmCli = 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs'
+   ```
+
+2. Create a new isolated verification directory under `G:\my-sitess\.tmp`.
+   Copy the current project into it while excluding `.git`, `node_modules`,
+   `dist`, and `.astro`. The copy must include source, tests, scripts,
+   `package.json`, `pnpm-lock.yaml`, and `pnpm-workspace.yaml`; the previous
+   three-file directory is insufficient for build verification.
+3. Record the source lockfile SHA-256, change to the isolated copy, then run:
+
+   ```powershell
+   node $pnpmCli --version
+   node $pnpmCli install --frozen-lockfile --store-dir 'G:\my-sitess\.cache\pnpm12-store' --cache-dir 'G:\my-sitess\.cache\pnpm12-cache' --state-dir 'G:\my-sitess\.cache\pnpm12-state' --reporter=append-only
+   node $pnpmCli ignored-builds
+   node $pnpmCli run build
+   node $pnpmCli run test:smoke
+   ```
+
+4. Required clean-install evidence:
+   - the version is exactly `12.5.1`;
+   - frozen install exits `0`;
+   - output contains no `ERR_PNPM_IGNORED_BUILDS`;
+   - esbuild is the only dependency build authorized by project policy;
+   - `pnpm ignored-builds` reports no unreviewed dependency builds;
+   - build and smoke commands exit `0`;
+   - the isolated and source lockfile hashes remain identical to the recorded
+     pre-install hash; and
+   - filesystem checks confirm every cache, store, temporary file, native pnpm
+     binary, and verification copy is under `G:\my-sitess`.
+5. If pnpm reports another package with a build script, stop and return to the
+   failure-planner. Do not expand the allowlist automatically.
+
+## Remaining gate sequence
+
+After the isolated install/build proof succeeds, return to the real repository
+and rerun without changing files:
+
+```powershell
+node --test tests/github-pages-deployment.test.mjs
 node --test tests/*.test.mjs
 node '.\node_modules\prettier\bin\prettier.cjs' --check -- <Git-derived changed paths>
 npm run build
 npm run test:smoke
-node docs/test-artifacts/visual-check.mjs
 npm run format:check
 ```
 
-The browser verification must repeat 390×844, 768×1024, and 1440×1000 light
-screenshots and assert computed styles, not screenshots alone:
+Replace `docs/test-reports/latest.md` with exact commands, exit codes, counts,
+lockfile hashes, ignored-build output, and artifact paths. Preserve the existing
+full-format baseline classification only after reconfirming zero overlap with
+the changed path set.
 
-- Primary hero CTA background: `#7300E6`.
-- Hero highlight and rating stars: `#8F00FF`.
-- Active navigation: `#7300E6`.
-- Announcement: violet background and `background-image: none` in light mode.
-- Dark mode: previous neutral canvas and foreground remain unchanged; CTA stays
-  orange, highlight/stars stay yellow, active navigation stays orange, and the
-  existing announcement pattern remains visible.
-- Theme persistence, keyboard focus, and zero horizontal overflow remain green.
+## Hosted rerun criteria
 
-After the computed-style assertions pass, manually inspect the regenerated
-screenshots for all three viewports. Replace
-`docs/test-reports/latest.md` with the new visual evidence.
+Once the local clean-install gate is green, push the already-tested repository
+repair and rerun GitHub Pages. Require the hosted action to select pnpm
+`12.5.1`, complete frozen dependency installation without ignored builds,
+build and upload the Astro artifact, run the deploy job, expose the Pages URL,
+and serve `https://www.buckleson.com/` successfully.
 
-## Acceptance and guardrails
+## Failure-to-fix mapping
 
-- All focused and full Node tests, changed-file formatting, build, smoke, and
-  visual assertions must exit `0` before the architecture record is updated.
-- Reconfirm that any repository-wide Prettier warnings have zero overlap with
-  the changed path set before retaining the established baseline exception.
-- Preserve orange/yellow only behind explicit `dark:` variants in the targeted
-  files.
-- Do not recolor the construction product photograph or rewrite/remove
-  ScrewFast copy, ratings, avatars, pricing, or deeper template sections; those
-  are content/image replacement work already deferred by the approved plan.
-- Do not rename CTA variants, alter component interfaces, replace assets, or
-  introduce new dependencies.
+| Failure                                  | Classification                           | Smallest correction                                     | Acceptance evidence                                    |
+| ---------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------ |
+| Corepack requests missing `bin/pnpm.cjs` | Local tool-cache metadata defect         | Invoke cached `bin/pnpm.mjs` directly with Node         | Version probe exits 0 and prints 12.5.1                |
+| No frozen install occurred               | Verification blocked before pnpm startup | Run the same install through the direct ESM entry point | Frozen install exits 0 with no ignored-build error     |
+| Build/smoke were skipped                 | Downstream of launcher failure           | Build and smoke in a complete isolated project copy     | Both commands exit 0                                   |
+| Repository pin and allowlist             | Already-correct repo state               | Preserve unchanged                                      | Existing 7/7 focused and 34/34 full tests remain green |
+
+## Guardrails
+
+- Do not edit product code, workflows, tests, package configuration, build
+  policy, or lockfile to work around this machine-specific launcher defect.
+- Do not weaken `allowBuilds`, disable strict dependency builds, or approve more
+  than esbuild.
+- Do not write to another drive, the user profile, a global package directory,
+  or the system Corepack installation.
+- Keep the gate closed until clean local install/build/smoke and the hosted
+  Pages rerun both succeed.
