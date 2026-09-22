@@ -114,6 +114,10 @@ test('sitePath handles root, nested, prefixed, fragment, and external URLs', asy
     sitePath('https://example.com/path'),
     'https://example.com/path'
   );
+  assert.equal(
+    sitePath('https://cal.com/buckleson-group/30min'),
+    'https://cal.com/buckleson-group/30min'
+  );
   assert.equal(sitePath('mailto:test@example.com'), 'mailto:test@example.com');
   assert.equal(
     sitePath('//cdn.example.com/app.js'),
@@ -147,7 +151,7 @@ test('active navigation removes the runtime base before selecting its stable id'
   assert.match(navLink, /id=\{id\}/);
 });
 
-test('built homepage loads CSS, JavaScript, and banner assets under the base', async () => {
+test('built homepage loads CSS, JavaScript, and hero assets under the base', async () => {
   const homepage = await readFile(resolve(DIST, 'index.html'), 'utf8');
   const stylesheets = [...homepage.matchAll(/<link\b[^>]*>/gi)]
     .map(match => match[0])
@@ -165,7 +169,10 @@ test('built homepage loads CSS, JavaScript, and banner assets under the base', a
     scripts.length > 0,
     'homepage must emit at least one external script'
   );
-  assert.match(homepage, /\/ThySite\/banner-pattern\.svg/);
+  assert.match(
+    homepage,
+    /\/ThySite\/_astro\/trust-orbit\.[A-Za-z0-9_-]+\.webp/
+  );
 
   for (const asset of [...stylesheets, ...scripts]) {
     assertDeployableUrl(asset, 'homepage asset');
@@ -221,8 +228,8 @@ test('built discovery metadata targets the deployed GitHub project', async () =>
   assert.equal(structuredData.isPartOf.url, projectUrl);
   assert.match(homepage, /rel="manifest" href="\/ThySite\/manifest\.json"/);
   assert.match(homepage, /rel="sitemap" href="\/ThySite\/sitemap-index\.xml"/);
-  assert.match(docs, /href="\/ThySite\/contact\/"/);
-  assert.doesNotMatch(docs, /href="\/contact\/"/);
+  assert.match(docs, /href="https:\/\/cal\.com\/buckleson-group\/30min"/);
+  assert.doesNotMatch(docs, /href="\/?(?:ThySite\/)?contact\/"/);
   assert.match(docs, /href="\/ThySite\/favicon\.ico"/);
   assert.doesNotMatch(docs, /\/ThySite\/ThySite\/favicon\.ico/);
   assert.equal(
@@ -241,6 +248,7 @@ test('built discovery metadata targets the deployed GitHub project', async () =>
     /Sitemap: https:\/\/vjk7989\.github\.io\/ThySite\/sitemap-index\.xml/
   );
   assert.match(sitemap, /https:\/\/vjk7989\.github\.io\/ThySite\//);
+  assert.doesNotMatch(sitemap, /\/ThySite\/contact\/?(?:<|$)/);
   assert.equal(await exists(resolve(ROOT, 'public/CNAME')), false);
   assert.equal(await exists(resolve(DIST, 'CNAME')), false);
 });

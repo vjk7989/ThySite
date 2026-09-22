@@ -1,86 +1,225 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
-import MainSection from '@components/ui/blocks/MainSection.astro';
-import AlternatingSections, {
-  type Article,
-} from '@components/ui/blocks/AlternatingSections.astro';
-import FeaturesStats from '@components/sections/features/FeaturesStats.astro';
-import blueprints from '@images/blueprints-image.avif';
-import personWorking from '@images/person-working.avif';
-import beforeAfter from '@images/before-after.avif';
-import constructionWorkers from '@images/construction-workers.avif';
-import aerialView from '@images/aerial-view.avif';
-import usingTools from '@images/using-tools.avif';
-import progressBuilding from '@images/progress-building.avif';
-import underConstruction from '@images/under-construction.avif';
-import { getCopy } from '@/copy';
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import { BOOKING_URL } from '@data/constants';
 import type { MarketingLocale } from '@utils/locale';
 
-/** The services page in one locale. */
 interface Props {
   locale: MarketingLocale;
 }
 
-const { locale } = Astro.props;
-const copy = getCopy(locale).services;
-const articleCopy = copy.articles;
+Astro.props satisfies Props;
 
-const articles: Article[] = [
+const solutions = [
   {
-    title: articleCopy.guidance.title,
-    subTitle: articleCopy.guidance.subTitle,
-    images: [
-      { src: blueprints, alt: articleCopy.guidance.imageAlts[0] },
-      { src: personWorking, alt: articleCopy.guidance.imageAlts[1] },
+    number: '01',
+    title: 'AI security assessment',
+    body: 'Map model, agent, data, tool, and identity boundaries; identify where controls and evidence are missing; prioritize one workflow for remediation.',
+    outputs: [
+      'Execution-path map',
+      'Risk and control gaps',
+      'Prioritized pilot boundary',
     ],
   },
   {
-    title: articleCopy.craftsmanship.title,
-    subTitle: articleCopy.craftsmanship.subTitle,
-    images: [{ src: beforeAfter, alt: articleCopy.craftsmanship.imageAlts[0] }],
-    cta: { title: articleCopy.craftsmanship.cta, url: '#' },
-  },
-  {
-    title: articleCopy.oversight.title,
-    subTitle: articleCopy.oversight.subTitle,
-    images: [
-      { src: constructionWorkers, alt: articleCopy.oversight.imageAlts[0] },
-      { src: aerialView, alt: articleCopy.oversight.imageAlts[1] },
+    number: '02',
+    title: 'Secure inference deployment',
+    body: 'Place policy-aware routing and task-relevant data transformation around a defined inference path using your existing model stack where feasible.',
+    outputs: [
+      'Enforcement-point design',
+      'Transformation policy',
+      'Integration validation',
     ],
   },
   {
-    title: articleCopy.maintenance.title,
-    subTitle: articleCopy.maintenance.subTitle,
-    images: [{ src: usingTools, alt: articleCopy.maintenance.imageAlts[0] }],
+    number: '03',
+    title: 'Custom AI development',
+    body: 'Build or fine-tune a model for a concrete requirement, then connect its workflow to explicit control, protection, and verification boundaries.',
+    outputs: [
+      'Requirements baseline',
+      'Model or fine-tuning work',
+      'Bounded deployment path',
+    ],
   },
   {
-    title: articleCopy.bespoke.title,
-    subTitle: articleCopy.bespoke.subTitle,
-    images: [
-      { src: progressBuilding, alt: articleCopy.bespoke.imageAlts[0] },
-      { src: underConstruction, alt: articleCopy.bespoke.imageAlts[1] },
+    number: '04',
+    title: 'Verification and operating design',
+    body: 'Define the execution records, review steps, and ownership needed to operate an AI workflow with accountable evidence over time.',
+    outputs: [
+      'Evidence schema',
+      'Review workflow',
+      'Operating responsibilities',
     ],
-    cta: { title: articleCopy.bespoke.cta, url: '#' },
   },
+];
+
+const lifecycle = [
+  ['Discover', 'Identify actors, data, tools, models, and delegated actions.'],
+  ['Design', 'Choose the smallest enforceable boundary and required evidence.'],
+  [
+    'Integrate',
+    'Connect controls to one real workflow and test failure states.',
+  ],
+  ['Operate', 'Review evidence, tune policy, and expand only when justified.'],
 ];
 ---
 
 <MainLayout
-  title={copy.title}
-  description={copy.metaDescription}
-  ogTitle={copy.ogTitle}
+  title="Solutions"
+  description="Buckleson provides AI security assessments, secure inference deployment, custom AI development, and verification design."
+  ogTitle="Buckleson AI Safety Solutions"
 >
-  <MainSection
-    title={copy.intro.title}
-    subTitle={copy.intro.subTitle}
-    cta={{ title: copy.intro.cta, url: '#' }}
-  />
-  <AlternatingSections articles={articles} />
-  <FeaturesStats
-    title={copy.stats.title}
-    subTitle={copy.stats.subTitle}
-    mainStatTitle={copy.stats.mainStatTitle}
-    mainStatSubTitle={copy.stats.mainStatSubTitle}
-    stats={copy.stats.stats}
-  />
+  <section class="grid items-end gap-10 py-16 sm:py-24 lg:grid-cols-[1.05fr_.95fr] lg:py-28">
+    <div class="max-w-4xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Solutions
+      </p>
+      <h1 class="mt-4 text-5xl font-bold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+        Move from AI risk questions to one controlled workflow.
+      </h1>
+    </div>
+    <div>
+      <p class="text-lg leading-8 text-muted-foreground">
+        Assess the execution path, integrate the smallest useful control, and
+        produce evidence your team can review—without assuming every problem
+        needs a new model or a new stack.
+      </p>
+      <div class="mt-7">
+        <PrimaryCTA title="Book an Assessment" url={BOOKING_URL} />
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="grid gap-5 border-y border-border py-20 sm:py-28 lg:grid-cols-2"
+    aria-labelledby="solutions-title"
+  >
+    <div class="mb-5 max-w-3xl lg:col-span-2">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        What we deliver
+      </p>
+      <h2
+        id="solutions-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        Services shaped around the control boundary.
+      </h2>
+    </div>
+    {solutions.map(solution => (
+      <article class="rounded-3xl border border-border bg-card p-7 sm:p-9">
+        <span class="font-mono text-sm text-primary">{solution.number}</span>
+        <h3 class="mt-8 text-2xl font-bold text-card-foreground">
+          {solution.title}
+        </h3>
+        <p class="mt-4 text-sm leading-7 text-muted-foreground">
+          {solution.body}
+        </p>
+        <ul class="mt-7 space-y-3 border-t border-border pt-6">
+          {solution.outputs.map(output => (
+            <li class="flex items-center gap-3 text-sm font-semibold text-foreground">
+              <span
+                aria-hidden="true"
+                class="h-2 w-2 rounded-full bg-primary"
+              ></span>
+              {output}
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+
+  <section class="py-20 sm:py-28" aria-labelledby="lifecycle-title">
+    <div class="mb-10 max-w-3xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Lifecycle
+      </p>
+      <h2
+        id="lifecycle-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        A gated path from discovery to operation.
+      </h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">
+        Every phase ends with evidence and an explicit decision about whether to
+        proceed.
+      </p>
+    </div>
+    <ol class="grid overflow-hidden rounded-3xl border border-border bg-border lg:grid-cols-4 lg:gap-px">
+      {lifecycle.map(([title, body], index) => (
+        <li class="relative bg-card p-7 sm:p-8">
+          <span class="font-mono text-sm text-primary">0{index + 1}</span>
+          <h3 class="mt-10 text-xl font-bold text-card-foreground">{title}</h3>
+          <p class="mt-3 text-sm leading-7 text-muted-foreground">{body}</p>
+          {index < lifecycle.length - 1 && (
+            <span
+              aria-hidden="true"
+              class="absolute right-5 bottom-5 text-primary lg:top-8 lg:bottom-auto"
+            >
+              →
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section
+    class="grid gap-10 border-y border-border py-20 sm:py-28 lg:grid-cols-[.8fr_1.2fr]"
+    aria-labelledby="fit-title"
+  >
+    <div>
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Engagement fit
+      </p>
+      <h2
+        id="fit-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        What we need to validate first.
+      </h2>
+    </div>
+    <div class="divide-y divide-border border-y border-border">
+      <div class="py-6">
+        <h3 class="font-bold">An enforceable integration point</h3>
+        <p class="mt-2 text-sm leading-6 text-muted-foreground">
+          The application, agent, provider, or data path must expose a place
+          where the selected policy can actually be applied.
+        </p>
+      </div>
+      <div class="py-6">
+        <h3 class="font-bold">A bounded use case</h3>
+        <p class="mt-2 text-sm leading-6 text-muted-foreground">
+          A specific task, data set, action, and owner make the pilot testable.
+          “Secure all AI” is not an actionable scope.
+        </p>
+      </div>
+      <div class="py-6">
+        <h3 class="font-bold">A review owner</h3>
+        <p class="mt-2 text-sm leading-6 text-muted-foreground">
+          Evidence is useful only when an authorized person or system knows how
+          to interpret and act on it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-16 rounded-3xl bg-primary px-6 py-14 text-primary-foreground sm:my-24 sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-12">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
+        Bring one AI workflow. Leave with a clearer boundary.
+      </h2>
+      <p class="mt-4 leading-7 opacity-80">
+        The first conversation is a fit assessment, not a promise that every
+        workflow can or should use the same control.
+      </p>
+    </div>
+    <div class="mt-8 shrink-0 lg:mt-0">
+      <PrimaryCTA
+        title="Book an Assessment"
+        url={BOOKING_URL}
+        variant="yellow"
+      />
+    </div>
+  </section>
 </MainLayout>

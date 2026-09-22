@@ -1,8 +1,9 @@
 ---
 import { getImage } from 'astro:assets';
 import { OG, SITE } from '@data/constants';
-import faviconSvgSrc from '@images/icon.svg';
 import faviconSrc from '@images/icon.png';
+import lightMark from '@images/brand/buckleson-mark-light.png';
+import darkMark from '@images/brand/buckleson-mark-dark.png';
 import type { PageMetadata } from '@utils/metadata';
 import { sitePath } from '@utils/paths';
 
@@ -24,7 +25,18 @@ const socialImageRes = await getImage({
 });
 const socialImage = Astro.url.origin + socialImageRes.src;
 
-const faviconSvg = await getImage({ src: faviconSvgSrc, format: 'svg' });
+const lightFavicon = await getImage({
+  src: lightMark,
+  width: 64,
+  height: 64,
+  format: 'png',
+});
+const darkFavicon = await getImage({
+  src: darkMark,
+  width: 64,
+  height: 64,
+  format: 'png',
+});
 const appleTouchIcon = await getImage({
   src: faviconSrc,
   width: 180,
@@ -81,8 +93,28 @@ const appleTouchIcon = await getImage({
   sizes="any"
   type="image/x-icon"
 />
-<link href={faviconSvg.src} rel="icon" type="image/svg+xml" sizes="any" />
+<link
+  href={lightFavicon.src}
+  rel="icon"
+  type="image/png"
+  media="(prefers-color-scheme: light)"
+/>
+<link
+  href={darkFavicon.src}
+  rel="icon"
+  type="image/png"
+  media="(prefers-color-scheme: dark)"
+/>
 <meta name="mobile-web-app-capable" content="yes" />
 <link href={appleTouchIcon.src} rel="apple-touch-icon" />
 <link href={appleTouchIcon.src} rel="shortcut icon" />
-<meta name="theme-color" content="#8f00ff" />
+<meta
+  name="theme-color"
+  content="#7c3aed"
+  media="(prefers-color-scheme: light)"
+/>
+<meta
+  name="theme-color"
+  content="#000000"
+  media="(prefers-color-scheme: dark)"
+/>

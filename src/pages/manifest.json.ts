@@ -51,8 +51,8 @@ export const GET: APIRoute = async () => {
     display: 'minimal-ui',
     id: sitePath('/'),
     start_url: sitePath('/'),
-    theme_color: '#8F00FF',
-    background_color: '#262626',
+    theme_color: '#7C3AED',
+    background_color: '#FFFFFF',
   };
 
   return new Response(JSON.stringify(manifest));

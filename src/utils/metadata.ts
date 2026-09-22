@@ -94,7 +94,7 @@ export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
         headline: input.title,
         image: kind.image,
         datePublished: kind.datePublished.toISOString(),
-        author: { '@type': 'Person', name: kind.author },
+        author: { '@type': 'Organization', name: kind.author },
         publisher,
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
       };

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Hyper Tern Routing Boundary", "locale": "en", "quality_profile": "showcase" },
+  "components": [
+    { "id": "request", "type": "external", "label": "Model request", "sublabel": "Intent and requested action", "pos": [40, 220], "size": [170, 68] },
+    { "id": "policy", "type": "security", "label": "Hyper Tern", "sublabel": "Routing and permission policy", "pos": [310, 220], "size": [190, 76], "tag": "CONTROL" },
+    { "id": "approved", "type": "backend", "label": "Approved API", "sublabel": "Scoped capability", "pos": [610, 120], "size": [170, 68] },
+    { "id": "blocked", "type": "database", "label": "Restricted resource", "sublabel": "No direct route", "pos": [610, 330], "size": [170, 68] },
+    { "id": "audit", "type": "database", "label": "Decision record", "sublabel": "Route and policy outcome", "pos": [310, 430], "size": [190, 68] }
+  ],
+  "connections": [
+    { "id": "request-policy", "from": "request", "to": "policy", "label": "evaluate intent", "variant": "emphasis" },
+    { "id": "policy-approved", "from": "policy", "to": "approved", "label": "allow scoped route", "variant": "security" },
+    { "id": "policy-blocked", "from": "policy", "to": "blocked", "label": "deny direct exposure", "variant": "dashed" },
+    { "id": "policy-audit", "from": "policy", "to": "audit", "label": "record decision", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "violet", "title": "Boundary", "items": ["Routes requests by declared intent and policy", "Contains access only where integrations enforce the decision"] }
+  ]
+}

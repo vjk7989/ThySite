@@ -145,9 +145,15 @@ test('retains one English Buckleson platform overview with bounded claims', asyn
   assert.match(overview, /Hyper-ABS/);
   assert.match(overview, /Hyper-0x/);
   assert.match(overview, /Request an AI Safety Assessment/);
-  assert.match(overview, /^\s+link:\s*\/ThySite\/contact\/$/m);
-  assert.doesNotMatch(overview, /^\s+link:\s*\/contact\/$/m);
-  assert.match(overview, /does not make model output inherently correct/i);
+  assert.match(
+    overview,
+    /^\s+link:\s*https:\/\/cal\.com\/buckleson-group\/30min$/m
+  );
+  assert.doesNotMatch(overview, /^\s+link:\s*\/?(?:ThySite\/)?contact\/$/m);
+  assert.match(
+    overview,
+    /\b(?:does|do) not make model output inherently correct\b/i
+  );
 });
 
 test('smoke checks English routes and representative removed locale boundaries', async () => {
@@ -168,9 +174,28 @@ test('smoke checks English routes and representative removed locale boundaries',
     '/fr/welcome-to-docs/',
     '/ja/welcome-to-docs/',
     '/zh-cn/welcome-to-docs/',
+    '/blog/post-1/',
+    '/blog/post-2/',
+    '/blog/post-3/',
+    '/insights/insight-1/',
+    '/insights/insight-2/',
+    '/insights/insight-3/',
   ];
 
   assert.match(smoke, /'\/welcome-to-docs\/'/);
+  for (const route of [
+    '/blog/agentic-control-boundaries/',
+    '/blog/reducing-data-exposure/',
+    '/blog/verifiable-ai-execution/',
+    '/insights/ai-risk-control-map/',
+    '/insights/prompt-injection-boundaries/',
+    '/insights/secure-inference-design/',
+  ]) {
+    assert.ok(
+      smoke.includes(`'${route}'`),
+      `missing English smoke route ${route}`
+    );
+  }
   assert.match(smoke, /res\.status\s*!==\s*404/);
   for (const route of removedRoutes) {
     assert.ok(smoke.includes(`'${route}'`), `missing 404 smoke route ${route}`);

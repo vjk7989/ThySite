@@ -1,151 +1,132 @@
-# Local pnpm 12 Verification Harness Fix Plan
+# Unit 4 Authored-File Formatting Fix Plan
 
 Date: 2026-09-22  
-Gate status: **CLOSED — repository checks pass, but clean install/build proof remains unrun**
+Gate status: **CLOSED — nine authored source/test files fail Prettier**
 
 ## Ranked root-cause analysis
 
-### P0 — Local Corepack metadata points at a nonexistent pnpm entry file
+### P0 — Nine Unit 4 authored files have mechanical formatting drift
 
-The workspace-contained Corepack cache has the correct pnpm `12.5.1` package
-at:
+The fresh build passed and all `23` focused assertions passed. The targeted
+check found eight formatting failures; the authoritative Git-derived check
+found the same eight plus `src/utils/content.ts`, which was omitted from the
+targeted list.
 
-```text
-G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1
-```
+The complete failing set is:
 
-Its generated `.corepack` metadata maps `pnpm` to `./bin/pnpm.cjs`, but the
-package actually contains `bin/pnpm.mjs`. Corepack 0.33.0 therefore fails with
-`MODULE_NOT_FOUND` before pnpm starts.
+1. `src/content.config.ts`;
+2. `src/utils/content.ts`;
+3. `src/components/sections/products/ProductDetail.astro`;
+4. `src/components/sections/products/ModuleDiagram.astro`;
+5. `src/views/ProductView.astro`;
+6. `src/views/ProductsIndexView.astro`;
+7. `src/views/ServicesView.astro`;
+8. `tests/platform-solutions-conversion.test.mjs`; and
+9. `tests/homepage-conversion.test.mjs`.
 
-This is a local Corepack cache/launcher defect, not a repository defect:
+These are all human-authored production or test files. No behavior failure is
+reported at this gate.
 
-- `package.json` correctly pins `pnpm@12.5.1`;
-- `pnpm-workspace.yaml` correctly allows only `esbuild` builds;
-- focused deployment tests pass 7/7;
-- the full Node suite passes 34/34; and
-- `pnpm-lock.yaml` is unchanged.
+### P1 — No generated or checksum-bound artifact is in the repair set
 
-### P1 — The verification harness depends unnecessarily on the broken wrapper
+None of the nine paths is under `dist/`, `.astro/`, or `docs/diagrams/`.
+`.prettierignore` already excludes all three generated locations, including the
+five Archify HTML deliveries and their checksum-bound receipts.
 
-The cached package's real ESM entry point is executable directly with Node. A
-read-only version probe has already demonstrated:
+The four new product Markdown entries, `scripts/smoke.mjs`, and
+`src/views/HomeView.astro` passed targeted formatting and must not be rewritten
+as part of this repair. No diagram HTML or receipt may be formatted.
 
-```powershell
-node 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs' --version
-```
+### P2 — Later verification is blocked only by formatting
 
-Result: exit code `0`, version `12.5.1`. pnpm downloaded its Windows native
-binary to
-`G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\pnpm-native.exe`, so the
-bootstrap and executable remain inside the required workspace boundary.
+Archify integrity, the full suite, exhaustive URL/route verification, diff
+validation, and smoke were not run because formatting exited `1`. They are
+downstream-unrun, not failed.
 
-## Smallest correction
+## Smallest safe fix
 
-Do not change any tracked repository file. Replace only the local verification
-command prefix:
-
-```powershell
-$pnpmCli = 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs'
-node $pnpmCli <arguments>
-```
-
-Do not repair `.corepack`, create a fake `pnpm.cjs`, modify the system Corepack
-installation, activate a global package manager, or write a shim outside
-`G:\my-sitess`.
-
-If the cached package is later unavailable, the fallback is an isolated
-workspace-contained fetch of exact `pnpm@12.5.1` using npm with
-`npm_config_cache`, `TEMP`, and `TMP` under `G:\my-sitess`, followed by direct
-Node execution of its `bin/pnpm.mjs`. Do not use an unpinned `npx pnpm` or
-`latest`.
-
-## Clean frozen-install and build rerun
-
-1. Keep all generated state under `G:\my-sitess`:
-
-   ```powershell
-   $env:TEMP = 'G:\my-sitess\.tmp'
-   $env:TMP = 'G:\my-sitess\.tmp'
-   $env:PNPM_HOME = 'G:\my-sitess\.tools\pnpm-home'
-   $env:PNPM_STORE_DIR = 'G:\my-sitess\.cache\pnpm12-store'
-   $env:npm_config_cache = 'G:\my-sitess\.cache\npm'
-   $env:XDG_CACHE_HOME = 'G:\my-sitess\.cache\xdg'
-   $pnpmCli = 'G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs'
-   ```
-
-2. Create a new isolated verification directory under `G:\my-sitess\.tmp`.
-   Copy the current project into it while excluding `.git`, `node_modules`,
-   `dist`, and `.astro`. The copy must include source, tests, scripts,
-   `package.json`, `pnpm-lock.yaml`, and `pnpm-workspace.yaml`; the previous
-   three-file directory is insufficient for build verification.
-3. Record the source lockfile SHA-256, change to the isolated copy, then run:
-
-   ```powershell
-   node $pnpmCli --version
-   node $pnpmCli install --frozen-lockfile --store-dir 'G:\my-sitess\.cache\pnpm12-store' --cache-dir 'G:\my-sitess\.cache\pnpm12-cache' --state-dir 'G:\my-sitess\.cache\pnpm12-state' --reporter=append-only
-   node $pnpmCli ignored-builds
-   node $pnpmCli run build
-   node $pnpmCli run test:smoke
-   ```
-
-4. Required clean-install evidence:
-   - the version is exactly `12.5.1`;
-   - frozen install exits `0`;
-   - output contains no `ERR_PNPM_IGNORED_BUILDS`;
-   - esbuild is the only dependency build authorized by project policy;
-   - `pnpm ignored-builds` reports no unreviewed dependency builds;
-   - build and smoke commands exit `0`;
-   - the isolated and source lockfile hashes remain identical to the recorded
-     pre-install hash; and
-   - filesystem checks confirm every cache, store, temporary file, native pnpm
-     binary, and verification copy is under `G:\my-sitess`.
-5. If pnpm reports another package with a build script, stop and return to the
-   failure-planner. Do not expand the allowlist automatically.
-
-## Remaining gate sequence
-
-After the isolated install/build proof succeeds, return to the real repository
-and rerun without changing files:
+Mechanically format exactly the nine reported authored files with the installed
+repository version of Prettier:
 
 ```powershell
-node --test tests/github-pages-deployment.test.mjs
-node --test tests/*.test.mjs
-node '.\node_modules\prettier\bin\prettier.cjs' --check -- <Git-derived changed paths>
-npm run build
-npm run test:smoke
-npm run format:check
+node .\node_modules\prettier\bin\prettier.cjs --write -- src/content.config.ts src/utils/content.ts src/components/sections/products/ProductDetail.astro src/components/sections/products/ModuleDiagram.astro src/views/ProductView.astro src/views/ProductsIndexView.astro src/views/ServicesView.astro tests/platform-solutions-conversion.test.mjs tests/homepage-conversion.test.mjs
 ```
 
-Replace `docs/test-reports/latest.md` with exact commands, exit codes, counts,
-lockfile hashes, ignored-build output, and artifact paths. Preserve the existing
-full-format baseline classification only after reconfirming zero overlap with
-the changed path set.
+Do not hand-edit logic while applying this repair. Do not run repository-wide
+`format:fix`. Do not add already-green authored files merely for consistency.
+Do not format anything in `dist/`, `.astro/`, or `docs/diagrams/`.
 
-## Hosted rerun criteria
-
-Once the local clean-install gate is green, push the already-tested repository
-repair and rerun GitHub Pages. Require the hosted action to select pnpm
-`12.5.1`, complete frozen dependency installation without ignored builds,
-build and upload the Astro artifact, run the deploy job, expose the Pages URL,
-and serve `https://www.buckleson.com/` successfully.
+After the write, inspect the diff for these nine paths and require it to contain
+only formatter-controlled layout, indentation, wrapping, quote, delimiter, and
+line-ending changes. If the diff exposes a semantic change, stop and return it
+to the failure-planner instead of accepting it as formatting.
 
 ## Failure-to-fix mapping
 
-| Failure                                  | Classification                           | Smallest correction                                     | Acceptance evidence                                    |
-| ---------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------ |
-| Corepack requests missing `bin/pnpm.cjs` | Local tool-cache metadata defect         | Invoke cached `bin/pnpm.mjs` directly with Node         | Version probe exits 0 and prints 12.5.1                |
-| No frozen install occurred               | Verification blocked before pnpm startup | Run the same install through the direct ESM entry point | Frozen install exits 0 with no ignored-build error     |
-| Build/smoke were skipped                 | Downstream of launcher failure           | Build and smoke in a complete isolated project copy     | Both commands exit 0                                   |
-| Repository pin and allowlist             | Already-correct repo state               | Preserve unchanged                                      | Existing 7/7 focused and 34/34 full tests remain green |
+| Failure                                                         | Classification                               | Smallest correction                    | Preserved guarantee                                          |
+| --------------------------------------------------------------- | -------------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
+| Eight targeted files fail Prettier                              | Authored-file formatting drift               | Prettier-write those exact eight files | Unit 4 source and assertion behavior remain unchanged        |
+| `src/utils/content.ts` additionally fails the Git-derived check | Targeted list omission plus formatting drift | Include it as the ninth exact path     | Product ordering/path logic remains covered by focused tests |
+| Archify/full/route/diff/smoke unrun                             | Downstream gate stop                         | Resume after the exact-path write      | Every later check must return observed exit code `0`         |
+
+## Required rerun sequence
+
+After the primary agent applies the exact nine-file formatter write, the
+independent test-runner should execute and record:
+
+1. Verify the exact repair set and formatting before rebuilding:
+
+   ```powershell
+   node .\node_modules\prettier\bin\prettier.cjs --check -- src/content.config.ts src/utils/content.ts src/components/sections/products/ProductDetail.astro src/components/sections/products/ModuleDiagram.astro src/views/ProductView.astro src/views/ProductsIndexView.astro src/views/ServicesView.astro tests/platform-solutions-conversion.test.mjs tests/homepage-conversion.test.mjs
+   git diff --check -- src/content.config.ts src/utils/content.ts src/components/sections/products/ProductDetail.astro src/components/sections/products/ModuleDiagram.astro src/views/ProductView.astro src/views/ProductsIndexView.astro src/views/ServicesView.astro tests/platform-solutions-conversion.test.mjs tests/homepage-conversion.test.mjs
+   ```
+
+2. Run the authoritative Git-derived changed-file Prettier check with
+   `.prettierignore` honored. Require no `docs/diagrams/**`, `dist/**`, or
+   `.astro/**` path in the effective checked set.
+3. Run the fresh typecheck and production build:
+
+   ```powershell
+   npm run build
+   ```
+
+4. Run the focused Unit 4 and coupled homepage suites against that fresh build:
+
+   ```powershell
+   node --test tests/platform-solutions-conversion.test.mjs
+   node --test tests/homepage-conversion.test.mjs
+   ```
+
+5. Verify all five Archify delivered HTML files still match their recorded
+   receipt SHA-256 values and byte counts, with no `docs/diagrams/**` mutation.
+   Preserve the existing `hyper-tern` receipt's truthful `fail` status.
+6. Run the full Node regression suite against the same fresh build:
+
+   ```powershell
+   node --test tests/*.test.mjs
+   ```
+
+7. Run the exhaustive built-HTML URL inventory and new/removed product-route
+   verification. Require zero URLs outside `/ThySite`, zero missing local
+   targets, all four new product routes present, and all four legacy `item-*`
+   routes absent.
+8. Run repository diff validation and route/content smoke:
+
+   ```powershell
+   git diff --check
+   npm run test:smoke
+   ```
+
+Every command must have an observed exit code of `0`. Replace
+`docs/test-reports/latest.md` with exact commands, exit codes, test counts,
+build/page/image counts, formatting results, receipt hashes/byte counts, route
+inventory, and smoke results, then check that report itself with Prettier.
 
 ## Guardrails
 
-- Do not edit product code, workflows, tests, package configuration, build
-  policy, or lockfile to work around this machine-specific launcher defect.
-- Do not weaken `allowBuilds`, disable strict dependency builds, or approve more
-  than esbuild.
-- Do not write to another drive, the user profile, a global package directory,
-  or the system Corepack installation.
-- Keep the gate closed until clean local install/build/smoke and the hosted
-  Pages rerun both succeed.
+- Keep all work, caches, reports, and generated output under `G:\my-sitess`.
+- Limit the write to the nine reported authored paths.
+- Do not format or mutate checksum-bound Archify artifacts.
+- Do not mix behavior changes into this formatting repair.
+- Keep the Unit 4 gate closed until every listed rerun returns an observed zero
+  exit code.

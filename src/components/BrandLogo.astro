@@ -1,14 +1,30 @@
 ---
+import lightMark from '@images/brand/buckleson-mark-light.png';
+import darkMark from '@images/brand/buckleson-mark-dark.png';
+
 const { class: className = '' } = Astro.props;
 ---
 
 <span
   class:list={[
-    'inline-flex items-center gap-2 font-semibold tracking-[-0.025em] text-brand-ink dark:text-neutral-100',
+    'inline-flex items-center gap-2.5 font-semibold tracking-[-0.025em] text-foreground',
     className,
   ]}
-  aria-hidden="true"
 >
-  <span class="size-2.5 rounded-full bg-brand-500 dark:bg-yellow-400"></span>
+  <span
+    class="relative size-8 shrink-0 overflow-hidden rounded-full"
+    aria-hidden="true"
+  >
+    <img
+      src={lightMark.src}
+      alt=""
+      class="size-full object-contain dark:hidden"
+    />
+    <img
+      src={darkMark.src}
+      alt=""
+      class="hidden size-full object-contain dark:block"
+    />
+  </span>
   <span>Buckleson</span>
 </span>

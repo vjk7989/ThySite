@@ -1,120 +1,386 @@
 ---
+import { Image } from 'astro:assets';
 import MainLayout from '@/layouts/MainLayout.astro';
-import HeroSection from '@components/sections/landing/HeroSection.astro';
-import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
-import ClientsSection from '@components/sections/landing/ClientsSection.astro';
-import FeaturesGeneral from '@components/sections/features/FeaturesGeneral.astro';
-import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
-import TestimonialsSection from '@components/sections/testimonials/TestimonialsSection.astro';
-import PricingSection from '@components/sections/pricing/PricingSection.astro';
-import FAQ from '@components/sections/misc/FAQ.astro';
-import AnnouncementBanner from '@components/ui/banners/AnnouncementBanner.astro';
-import heroImage from '@images/hero-image.avif';
-import featureImage from '@images/features-image.avif';
-import construction from '@images/construction-image.avif';
-import tools from '@images/automated-tools.avif';
-import dashboard from '@images/dashboard-image.avif';
-import { partnersData } from '@data/constants';
-import { getCopy } from '@/copy';
-import { localePath, type MarketingLocale } from '@utils/locale';
+import TrustArchitecture from '@components/sections/landing/TrustArchitecture.astro';
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import trustOrbit from '@images/buckleson/trust-orbit.png';
+import { BOOKING_URL } from '@data/constants';
+import { sitePath } from '@utils/paths';
 
-/** The home page in one locale. Copy comes from the locale's copy table. */
-interface Props {
-  locale: MarketingLocale;
-}
+const platformPath = sitePath('/products');
 
-const { locale } = Astro.props;
-const t = getCopy(locale);
-const copy = t.home;
-
-const avatarSrcs: Array<string> = [
-  'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-  'https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-  'https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80',
-  'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+const audiences = [
+  [
+    'Organizations',
+    'Adopt AI with explicit control boundaries and evidence your teams can review.',
+  ],
+  [
+    'AI teams',
+    'Add routing, data-minimization, and execution records around existing model workflows.',
+  ],
+  [
+    'Developers',
+    'Build governed agent and application paths without tying trust to one model provider.',
+  ],
+  [
+    'Individuals',
+    'Understand where personal data and delegated actions cross an AI system boundary.',
+  ],
 ];
 
-const testimonials = copy.testimonials.quotes.map(quote => ({
-  ...quote,
-  avatarSrc:
-    'https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?q=80&w=1453&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80',
-}));
+const modules = [
+  {
+    index: '01',
+    name: 'Hyper Tern',
+    action: 'Control',
+    description:
+      'Mediates requests using declared intent, permissions, and deployment policy before a route reaches an approved capability.',
+    href: '/products/hyper-tern',
+  },
+  {
+    index: '02',
+    name: 'Hyper-ABS',
+    action: 'Protect',
+    description:
+      'Transforms task context to reduce unnecessary raw-data exposure before inference. Effectiveness depends on policy quality and integration coverage.',
+    href: '/products/hyper-abs',
+  },
+  {
+    index: '03',
+    name: 'Hyper-0x',
+    action: 'Verify',
+    description:
+      'Creates attributable, tamper-evident execution records so authorized reviewers can reconstruct what occurred.',
+    href: '/products/hyper-0x',
+  },
+];
+
+const coverage = [
+  ['Control', 'Route and permission decisions', 'Hyper Tern'],
+  ['Protect', 'Task-relevant context transformation', 'Hyper-ABS'],
+  ['Verify', 'Attributable execution history', 'Hyper-0x'],
+  [
+    'Operate',
+    'Monitoring, review, and surrounding controls',
+    'Your deployment + Buckleson',
+  ],
+];
+
+const process = [
+  [
+    'Assess',
+    'Map AI flows, sensitive boundaries, delegated actions, and the evidence your reviewers need.',
+  ],
+  [
+    'Pilot and integrate',
+    'Place the smallest useful control around one bounded workflow and validate it with your team.',
+  ],
+  [
+    'Verify and operate',
+    'Review records, tune policies, and expand only after the first boundary works as intended.',
+  ],
+];
+
+const faqs = [
+  [
+    'Why use a blockchain?',
+    'Hyper-0x uses an in-house verification layer to create tamper-evident execution records. It supports attribution and auditability; it does not prove that an AI decision was correct.',
+  ],
+  [
+    'Does Buckleson guarantee privacy?',
+    'No. Hyper-ABS is designed to reduce avoidable raw-data exposure within a configured flow. Privacy still depends on the full deployment, integrations, policies, and operating practices.',
+  ],
+  [
+    'Does this replace our security program?',
+    'No. Buckleson adds control and evidence at AI execution boundaries. Identity, endpoint, network, data, vendor, and incident-response controls remain necessary.',
+  ],
+  [
+    'Can you work with an existing model stack?',
+    'The architecture is model-agnostic by design. An assessment determines whether the required enforcement points exist in your current environment.',
+  ],
+  [
+    'Do you build custom models?',
+    'Yes. Buckleson can develop or fine-tune a model for a defined requirement, then place the resulting workflow inside the same control, protection, and verification boundaries.',
+  ],
+];
 ---
 
 <MainLayout>
-  <AnnouncementBanner
-    btnId="dismiss-button"
-    btnTitle={copy.banner}
-    url="https://github.com/mearashadowfax/ScrewFast"
-  />
+  <section class="relative overflow-hidden py-16 sm:py-24 lg:py-32">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.04fr_.96fr] lg:gap-6">
+      <div class="relative z-10 max-w-3xl">
+        <p class="mb-5 inline-flex rounded-full border border-primary/20 bg-primary/8 px-4 py-2 text-sm font-semibold text-primary">
+          AI safety infrastructure for real execution paths
+        </p>
+        <h1 class="text-5xl leading-[.98] font-bold tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
+          Use AI safely.
+          <br />
+          <span class="text-primary">Prove every action.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
+          Buckleson helps organizations and builders control AI access, reduce
+          unnecessary data exposure, and create verifiable execution records
+          with Hyper Tern, Hyper-ABS, and our in-house Hyper-0x layer.
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <PrimaryCTA title="Book an Assessment" url={BOOKING_URL} />
+          <a
+            href={platformPath}
+            class="inline-flex items-center justify-center rounded-lg border border-border bg-background px-4 py-3 text-sm font-bold text-foreground transition hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none 2xl:text-base"
+          >
+            Explore the platform
+          </a>
+        </div>
+        <p class="mt-5 text-sm text-muted-foreground">
+          Start with one bounded workflow. No replacement of your entire AI
+          stack is required.
+        </p>
+      </div>
 
-  <HeroSection
-    title={copy.hero.title}
-    subTitle={copy.hero.subTitle}
-    primaryBtn={copy.hero.primaryBtn}
-    primaryBtnURL={localePath(locale, '/products')}
-    secondaryBtn={copy.hero.secondaryBtn}
-    secondaryBtnURL={localePath(locale, '/contact')}
-    withReview={true}
-    avatars={avatarSrcs}
-    rating={copy.hero.rating}
-    starCount={4}
-    reviews={copy.hero.reviews}
-    src={heroImage}
-    alt={copy.hero.imageAlt}
-  />
+      <div
+        class="relative mx-auto aspect-square w-full max-w-[620px]"
+        aria-hidden="true"
+      >
+        <div class="absolute inset-[12%] rounded-full bg-primary/10 blur-3xl"></div>
+        <Image
+          src={trustOrbit}
+          alt=""
+          widths={[480, 720, 960]}
+          sizes="(min-width: 1024px) 48vw, 90vw"
+          class="relative h-full w-full object-contain"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
 
-  <ClientsSection
-    title={copy.clients.title}
-    subTitle={copy.clients.subTitle}
-    partners={partnersData}
-  />
+  <section
+    class="border-y border-border py-14 sm:py-18"
+    aria-labelledby="audience-title"
+  >
+    <div class="mb-8 max-w-2xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Who we help
+      </p>
+      <h2
+        id="audience-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl"
+      >
+        A clear boundary for every AI participant
+      </h2>
+    </div>
+    <div class="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+      {audiences.map(([title, description], index) => (
+        <article class="bg-card p-6 sm:p-7">
+          <span class="mb-8 block font-mono text-sm text-primary">
+            0{index + 1}
+          </span>
+          <h3 class="text-lg font-bold text-card-foreground">{title}</h3>
+          <p class="mt-3 text-sm leading-6 text-muted-foreground">
+            {description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
 
-  <FeaturesGeneral
-    title={copy.featuresGeneral.title}
-    subTitle={copy.featuresGeneral.subTitle}
-    src={featureImage}
-    alt={copy.featuresGeneral.imageAlt}
-    features={t.data.features}
-  />
+  <section class="py-20 sm:py-28" aria-labelledby="architecture-heading">
+    <div class="mb-10 max-w-3xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Control · Protect · Verify
+      </p>
+      <h2
+        id="architecture-heading"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        Trust belongs in the execution path
+      </h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">
+        Models change. Providers change. The boundary around data access,
+        delegated actions, and evidence should remain explicit.
+      </p>
+    </div>
+    <TrustArchitecture />
+  </section>
 
-  <FeaturesNavs
-    title={copy.featuresNavs.title}
-    tabs={[
-      {
-        ...copy.featuresNavs.tabs.tools,
-        svg: 'tools',
-        src: tools,
-        first: true,
-      },
-      {
-        ...copy.featuresNavs.tabs.dashboard,
-        svg: 'dashboard',
-        src: dashboard,
-        second: true,
-      },
-      {
-        ...copy.featuresNavs.tabs.features,
-        svg: 'house',
-        src: construction,
-      },
-    ]}
-  />
+  <section class="pb-20 sm:pb-28" aria-labelledby="modules-title">
+    <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+      <div class="max-w-2xl">
+        <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+          The platform
+        </p>
+        <h2
+          id="modules-title"
+          class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+        >
+          Three modules. One accountable flow.
+        </h2>
+      </div>
+      <a
+        href={platformPath}
+        class="text-sm font-bold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+      >
+        See the complete platform
+      </a>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-3">
+      {modules.map(module => (
+        <article class="group flex min-h-[340px] flex-col rounded-3xl border border-border bg-card p-7 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg sm:p-8">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-sm text-muted-foreground">
+              {module.index}
+            </span>
+            <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold tracking-wide text-primary uppercase">
+              {module.action}
+            </span>
+          </div>
+          <div class="my-10 h-px bg-gradient-to-r from-primary/60 to-transparent"></div>
+          <h3 class="text-2xl font-bold text-card-foreground">{module.name}</h3>
+          <p class="mt-4 grow text-sm leading-7 text-muted-foreground">
+            {module.description}
+          </p>
+          <a
+            href={sitePath(module.href)}
+            class="mt-8 inline-flex font-bold text-primary focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none"
+          >
+            Explore {module.name}
+            <span
+              aria-hidden="true"
+              class="ml-2 transition group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
 
-  <TestimonialsSection
-    title={copy.testimonials.title}
-    subTitle={copy.testimonials.subTitle}
-    testimonials={testimonials}
-    statistics={copy.testimonials.statistics}
-  />
+  <section
+    class="grid gap-12 border-y border-border py-20 sm:py-28 lg:grid-cols-[.78fr_1.22fr]"
+    aria-labelledby="coverage-title"
+  >
+    <div class="max-w-xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        Transparent coverage
+      </p>
+      <h2
+        id="coverage-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        Security claims need boundaries too.
+      </h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">
+        Buckleson is designed to reduce exposure and improve accountability at
+        defined AI control points. It complements—rather than replaces—the
+        controls around the rest of your environment.
+      </p>
+    </div>
+    <div class="overflow-hidden rounded-2xl border border-border bg-card">
+      {coverage.map(([action, boundary, owner], index) => (
+        <div
+          class:list={[
+            'grid gap-3 p-5 sm:grid-cols-[110px_1fr_170px] sm:items-center sm:p-6',
+            index > 0 && 'border-t border-border',
+          ]}
+        >
+          <span class="font-bold text-card-foreground">{action}</span>
+          <span class="text-sm leading-6 text-muted-foreground">
+            {boundary}
+          </span>
+          <span class="text-sm font-semibold text-primary sm:text-right">
+            {owner}
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
 
-  <PricingSection pricing={t.data.pricing} />
+  <section class="py-20 sm:py-28" aria-labelledby="process-title">
+    <div class="mb-10 max-w-3xl">
+      <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+        How we engage
+      </p>
+      <h2
+        id="process-title"
+        class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+      >
+        Assess. Pilot. Operate.
+      </h2>
+    </div>
+    <ol class="grid gap-6 lg:grid-cols-3">
+      {process.map(([title, description], index) => (
+        <li class="rounded-2xl border border-border bg-muted/35 p-7">
+          <span class="font-mono text-sm text-primary">0{index + 1}</span>
+          <h3 class="mt-8 text-xl font-bold">{title}</h3>
+          <p class="mt-3 text-sm leading-7 text-muted-foreground">
+            {description}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </section>
 
-  <FAQ title={copy.faqTitle} faqs={t.data.faqs} />
+  <section
+    class="border-t border-border py-20 sm:py-28"
+    aria-labelledby="faq-title"
+  >
+    <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+      <div>
+        <p class="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
+          Questions, answered
+        </p>
+        <h2
+          id="faq-title"
+          class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl"
+        >
+          What the trust layer does—and does not do.
+        </h2>
+      </div>
+      <div class="divide-y divide-border border-y border-border">
+        {faqs.map(([question, answer]) => (
+          <details class="group py-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-foreground focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none">
+              {question}
+              <span
+                aria-hidden="true"
+                class="text-xl text-primary transition group-open:rotate-45"
+              >
+                +
+              </span>
+            </summary>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+              {answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <HeroSectionAlt
-    title={copy.heroAlt.title}
-    subTitle={copy.heroAlt.subTitle}
-    url="https://github.com/mearashadowfax/ScrewFast"
-  />
+  <section class="mb-16 overflow-hidden rounded-3xl bg-primary px-6 py-14 text-primary-foreground sm:px-10 sm:py-18 lg:px-16">
+    <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
+      <div class="max-w-2xl">
+        <p class="text-sm font-semibold tracking-[0.18em] uppercase opacity-75">
+          Start with the boundary you have today
+        </p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-5xl">
+          Find the smallest practical path to safer AI.
+        </h2>
+        <p class="mt-5 text-base leading-7 opacity-80">
+          A 30-minute assessment call helps identify the workflow, control
+          point, and evidence worth validating first.
+        </p>
+      </div>
+      <a
+        href={BOOKING_URL}
+        class="inline-flex shrink-0 items-center justify-center rounded-lg bg-background px-5 py-3.5 text-sm font-bold text-foreground transition hover:bg-muted focus-visible:ring-3 focus-visible:ring-primary-foreground focus-visible:outline-none"
+      >
+        Book an Assessment
+        <span aria-hidden="true" class="ml-2">
+          →
+        </span>
+      </a>
+    </div>
+  </section>
 </MainLayout>

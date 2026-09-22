@@ -1,75 +1,95 @@
-# Hosted CI formatting repair gate
+# Unit 6 Pre-push Deployment Report
 
-Date: 2026-09-22
+Date: 2026-09-23
 
-Hosted failure: `35668856470`
+Status: **GREEN**. Every required test, build, format, diff, and smoke command returned an observed exit code of `0`.
 
-Status: **FAILED — gate closed**
+## Environment
 
-## Scope
+- Workspace: `G:\my-sitess\ThySite`
+- Test-runner role: no product or test code edited.
+- Project-created temporary data and build output remained under `G:\my-sitess`.
 
-Independent verification of the single mechanical JSON formatting repair associated with hosted CI failure `35668856470`. The runner did not edit product, test, workflow, or artifact code; only this report was replaced.
+## 1. Focused deployment, navigation, and smoke-path tests
 
-## Changed-path inspection
+Command:
 
-```powershell
-git status --short
-git diff -- docs/test-artifacts/github-pages-base-final-20260922/browser-results.json
-```
-
-- Before this report update, Git showed one modified path: `docs/test-artifacts/github-pages-base-final-20260922/browser-results.json`.
-- The displayed diff only changed JSON whitespace/layout: compact array formatting and a final newline.
-- No JSON values, keys, ordering, or recorded browser evidence changed in the inspected diff.
-
-## JSON parsing
-
-```powershell
-node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('PACKAGE_JSON_PARSE=OK')"
-node -e "JSON.parse(require('fs').readFileSync('docs/test-artifacts/github-pages-base-final-20260922/browser-results.json','utf8')); console.log('BROWSER_RESULTS_JSON_PARSE=OK')"
+```text
+node --test tests/github-pages-deployment.test.mjs tests/navigation-booking.test.mjs tests/smoke-path.test.mjs
 ```
 
 - Exit code: `0`
-- `package.json`: parsed successfully.
-- `browser-results.json`: parsed successfully.
+- Tests: 19
+- Passed: 19
+- Failed: 0
+- Skipped: 0
+- Cancelled: 0
+- Todo: 0
+- Duration: 134.9124 ms
 
-## Targeted formatting verification
+## 2. Production build
 
-```powershell
-node node_modules/prettier/bin/prettier.cjs --check -- docs/test-artifacts/github-pages-base-final-20260922/browser-results.json
-```
+Command: `npm run build`
 
 - Exit code: `0`
-- Result: the repaired JSON file uses Prettier formatting.
+- Astro check: 69 files, 0 errors, 0 warnings, 3 hints
+- Static output: 16 pages
+- Optimized images: 49
+- Pagefind: 16 HTML files indexed
+- Build output: `G:\my-sitess\ThySite\dist`
+- Non-failing output included the existing Vite `use astro:head-inject` preservation warning and empty `i18n` collection warning.
 
-## Required repository-wide pinned-pnpm formatting check
+## 3. Fresh GitHub Pages base-path tests
 
-The command used the verified direct pnpm `12.5.1` entry point with `COREPACK_HOME`, pnpm store, npm cache, XDG cache, and temp directories under `G:\my-sitess`.
+Command: `node --test tests/github-pages-base-path.test.mjs`
 
-```powershell
-node G:\my-sitess\.tools\corepack\v1\pnpm\12.5.1\bin\pnpm.mjs format:check
-```
+- Exit code: `0`
+- Tests: 6
+- Passed: 6
+- Failed: 0
+- Skipped: 0
+- Cancelled: 0
+- Todo: 0
+- Duration: 104.2357 ms
 
-- Exit code: `1`
-- pnpm version: `12.5.1`
-- pnpm first synchronized `455` packages from the project-contained store/cache configuration and successfully ran the permitted `esbuild@0.28.2` postinstall.
-- Script executed: `prettier --check .`
-- Result: `Code style issues found in 117 files.`
-- The repaired `docs/test-artifacts/github-pages-base-final-20260922/browser-results.json` was not among the reported failures.
-- Reported files span existing repository configuration, documentation, source, content, and view files, including `.github/dependabot.yml`, `.prettierrc`, `README.md`, `process-html.mjs`, numerous `src/**` files, `tsconfig.json`, and `vercel.json`.
+## 4. Full Node regression suite
 
-## Checks not run
+Command: `node --test tests/*.test.mjs`
 
-The required full-format check failed, so the runner stopped immediately without running:
+- Exit code: `0`
+- Tests: 86
+- Passed: 86
+- Failed: 0
+- Skipped: 0
+- Cancelled: 0
+- Todo: 0
+- Duration: 370.625 ms
 
-- `git diff --check`
-- Final formatting-only diff classification beyond the already inspected JSON path
-- Focused tests
-- Full Node test suite
-- Production build
-- Route/content smoke tests
+## 5. Full formatting check
 
-These checks remain required after the repository-wide formatting gate is resolved or the project explicitly establishes and accepts a narrower authoritative formatting scope.
+Command: `npm run format:check`
 
-## Gate decision
+- Exit code: `0`
+- Result: `All matched files use Prettier code style!`
 
-The mechanical JSON repair itself parses and passes targeted Prettier validation, and its inspected diff is formatting-only. However, the explicitly required full `pnpm format:check` command exits nonzero with 117 reported files. Under the green-gate policy, hosted CI repair verification remains closed and no later checks were run.
+## 6. Diff whitespace validation
+
+Command: `git diff --check`
+
+- Exit code: `0`
+- No whitespace errors were reported.
+- Git emitted LF-to-CRLF conversion notices for working-tree text files. These are `core.autocrlf` notices, not diff whitespace errors.
+
+## 7. Production smoke test
+
+Command: `npm run test:smoke`
+
+- Exit code: `0`
+- Route assertions: 42 total
+- Expected `200` responses verified: 16
+- Expected `404` responses verified: 26
+- Coverage included all current English public routes, all four Buckleson product routes, removed template routes, `/contact/`, former French marketing routes, and former translated documentation routes.
+
+## Conclusion
+
+The Unit 6 pre-push deployment gate is green. Deployment configuration, booking/navigation behavior, base-path resource resolution, the complete regression suite, formatting, diff whitespace, build output, and production route behavior all passed with observed zero exit codes.

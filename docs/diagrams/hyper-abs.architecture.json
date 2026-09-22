@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Hyper-ABS Data Abstraction", "locale": "en", "quality_profile": "showcase" },
+  "components": [
+    { "id": "sensitive", "type": "database", "label": "Sensitive source data", "sublabel": "Enterprise records", "pos": [40, 230], "size": [180, 72] },
+    { "id": "abs", "type": "security", "label": "Hyper-ABS", "sublabel": "Mask, tokenize, abstract", "pos": [315, 230], "size": [190, 76], "tag": "PROTECT" },
+    { "id": "representation", "type": "messagebus", "label": "Protected representation", "sublabel": "Task-relevant context", "pos": [610, 230], "size": [190, 72] },
+    { "id": "model", "type": "cloud", "label": "AI model", "sublabel": "Inference on representation", "pos": [905, 230], "size": [170, 72] },
+    { "id": "policy", "type": "security", "label": "Transformation policy", "sublabel": "Field and task rules", "pos": [315, 430], "size": [190, 68] }
+  ],
+  "connections": [
+    { "id": "source-abs", "from": "sensitive", "to": "abs", "label": "raw input", "variant": "security" },
+    { "id": "policy-abs", "from": "policy", "to": "abs", "label": "apply rules", "variant": "dashed" },
+    { "id": "abs-representation", "from": "abs", "to": "representation", "label": "minimized context", "variant": "emphasis" },
+    { "id": "representation-model", "from": "representation", "to": "model", "label": "inference input" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Exposure reduction", "items": ["Transforms data before model inference", "Effectiveness depends on policy quality and deployment coverage"] }
+  ]
+}

@@ -1,0 +1,205 @@
+---
+type DiagramKind = 'hyper-tern' | 'hyper-abs' | 'hyper-0x' | 'hyper-wallet';
+
+interface Props {
+  kind: DiagramKind;
+}
+
+const { kind } = Astro.props;
+
+const diagrams: Record<
+  DiagramKind,
+  { title: string; description: string; nodes: Array<[string, string]> }
+> = {
+  'hyper-tern': {
+    title: 'Hyper Tern routing boundary',
+    description:
+      'A request is evaluated by Hyper Tern before reaching an approved capability, while the routing decision is retained.',
+    nodes: [
+      ['Model request', 'Intent + scope'],
+      ['Hyper Tern', 'Route + permission'],
+      ['Approved capability', 'Scoped access'],
+      ['Decision record', 'Policy outcome'],
+    ],
+  },
+  'hyper-abs': {
+    title: 'Hyper-ABS abstraction boundary',
+    description:
+      'Sensitive source data is transformed into a task-relevant representation before model inference.',
+    nodes: [
+      ['Source data', 'Enterprise records'],
+      ['Hyper-ABS', 'Transform policy'],
+      ['Protected context', 'Task-relevant view'],
+      ['AI model', 'Inference input'],
+    ],
+  },
+  'hyper-0x': {
+    title: 'Hyper-0x verification layer',
+    description:
+      'An AI action and actor context form an execution record that can be verified in an authorized audit.',
+    nodes: [
+      ['AI action', 'Mediated execution'],
+      ['Execution record', 'Action + result'],
+      ['Hyper-0x', 'Tamper-evident history'],
+      ['Audit workflow', 'Authorized review'],
+    ],
+  },
+  'hyper-wallet': {
+    title: 'Hyper Wallet authorization flow',
+    description:
+      'An authorized identity signs declared intent and carries the resulting execution receipt.',
+    nodes: [
+      ['Identity', 'Authorized actor'],
+      ['Signed intent', 'Action + scope'],
+      ['Controlled action', 'Mediated execution'],
+      ['Receipt', 'Attributable proof'],
+    ],
+  },
+};
+
+const diagram = diagrams[kind];
+---
+
+<figure
+  class="module-diagram overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-7"
+  data-module-diagram
+  aria-labelledby={`${kind}-diagram-title`}
+  aria-describedby={`${kind}-diagram-description`}
+>
+  <figcaption class="mb-5">
+    <h2
+      id={`${kind}-diagram-title`}
+      class="text-xl font-bold text-card-foreground sm:text-2xl"
+    >
+      {diagram.title}
+    </h2>
+    <p
+      id={`${kind}-diagram-description`}
+      class="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground"
+    >
+      {diagram.description}
+    </p>
+  </figcaption>
+  <div
+    class="overflow-x-auto pb-2"
+    tabindex="0"
+    aria-label={`Scrollable ${diagram.title}`}
+  >
+    <svg
+      class="h-auto min-w-[760px]"
+      viewBox="0 0 1040 270"
+      role="img"
+      aria-labelledby={`${kind}-svg-title ${kind}-svg-description`}
+    >
+      <title id={`${kind}-svg-title`}>{diagram.title}</title>
+      <desc id={`${kind}-svg-description`}>{diagram.description}</desc>
+      <defs>
+        <marker
+          id={`${kind}-arrow`}
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" class="fill-primary"></path>
+        </marker>
+      </defs>
+      <g
+        class="fill-none stroke-primary/75 stroke-[3]"
+        marker-end={`url(#${kind}-arrow)`}
+        data-module-paths
+      >
+        <path d="M 230 136 H 290"></path>
+        <path d="M 490 136 H 550"></path>
+        <path d="M 750 136 H 810"></path>
+      </g>
+      {diagram.nodes.map(([label, detail], index) => {
+        const x = 30 + index * 260;
+        return (
+          <g data-module-node>
+            <rect
+              x={x}
+              y="80"
+              width="200"
+              height="112"
+              rx="18"
+              class:list={[
+                index === 1 || index === 2
+                  ? 'fill-primary/8 stroke-primary'
+                  : 'fill-muted stroke-border',
+              ]}
+              stroke-width={index === 1 || index === 2 ? 3 : 2}
+            ></rect>
+            <text
+              x={x + 100}
+              y="124"
+              text-anchor="middle"
+              class="fill-foreground text-[17px] font-bold"
+            >
+              {label}
+            </text>
+            <text
+              x={x + 100}
+              y="156"
+              text-anchor="middle"
+              class="fill-muted-foreground text-[13px]"
+            >
+              {detail}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+</figure>
+
+<script>
+  import { animate, createScope, stagger } from 'animejs';
+
+  const moduleScopes = new WeakMap<Element, ReturnType<typeof createScope>>();
+
+  const initialiseModuleDiagrams = () => {
+    document
+      .querySelectorAll<HTMLElement>('[data-module-diagram]')
+      .forEach(root => {
+        moduleScopes.get(root)?.revert();
+        const scope = createScope({
+          root,
+          mediaQueries: { reducedMotion: '(prefers-reduced-motion: reduce)' },
+        }).add(context => {
+          if (!context || context.matches.reducedMotion) return;
+          animate('[data-module-node]', {
+            opacity: [0.72, 1],
+            translateY: [5, 0],
+            delay: stagger(100),
+            duration: 520,
+            ease: 'out(3)',
+          });
+          animate('[data-module-paths] path', {
+            opacity: [0.45, 1],
+            delay: stagger(120, { start: 180 }),
+            duration: 580,
+            ease: 'out(3)',
+          });
+        });
+        moduleScopes.set(root, scope);
+      });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseModuleDiagrams, {
+      once: true,
+    });
+  } else {
+    initialiseModuleDiagrams();
+  }
+
+  document.addEventListener('astro:page-load', initialiseModuleDiagrams);
+  document.addEventListener('astro:before-swap', () => {
+    document
+      .querySelectorAll('[data-module-diagram]')
+      .forEach(root => moduleScopes.get(root)?.revert());
+  });
+</script>

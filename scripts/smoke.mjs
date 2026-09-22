@@ -7,14 +7,31 @@ const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
 const MARKETING_ROUTES = [
   '/',
   '/products/',
-  '/products/item-a765/',
+  '/products/hyper-tern/',
+  '/products/hyper-abs/',
+  '/products/hyper-0x/',
+  '/products/hyper-wallet/',
   '/services/',
   '/blog/',
-  '/blog/post-1/',
-  '/insights/insight-1/',
-  '/contact/',
+  '/blog/agentic-control-boundaries/',
+  '/blog/reducing-data-exposure/',
+  '/blog/verifiable-ai-execution/',
+  '/insights/ai-risk-control-map/',
+  '/insights/prompt-injection-boundaries/',
+  '/insights/secure-inference-design/',
 ];
-const REMOVED_LOCALE_ROUTES = [
+const REMOVED_ROUTES = [
+  '/contact/',
+  '/products/item-a765/',
+  '/products/item-b203/',
+  '/products/item-f303/',
+  '/products/item-t845/',
+  '/blog/post-1/',
+  '/blog/post-2/',
+  '/blog/post-3/',
+  '/insights/insight-1/',
+  '/insights/insight-2/',
+  '/insights/insight-3/',
   '/fr/',
   '/fr/contact/',
   '/fr/products/',
@@ -41,8 +58,38 @@ const EXPECTATIONS = {
     'https://vjk7989.github.io/ThySite',
   ],
   '/welcome-to-docs/': ['Buckleson Platform Overview'],
-  '/contact/': ['data-demo-form', 'data-demo-status'],
-  '/blog/post-1/': ['"@type":"BlogPosting"'],
+  '/products/': ['A trust layer across the AI execution path.'],
+  '/products/hyper-tern/': ['Hyper Tern', 'What this module contributes'],
+  '/products/hyper-abs/': ['Hyper-ABS', 'What this module contributes'],
+  '/products/hyper-0x/': ['Hyper-0x', 'What this module contributes'],
+  '/products/hyper-wallet/': ['Hyper Wallet', 'What this module contributes'],
+  '/services/': ['Move from AI risk questions to one controlled workflow.'],
+  '/blog/': ['Make AI risk concrete enough to control.'],
+  '/blog/agentic-control-boundaries/': [
+    'Where an AI agent needs a control boundary',
+    '"@type":"BlogPosting"',
+    '"@type":"Organization"',
+  ],
+  '/blog/reducing-data-exposure/': [
+    'Reducing data exposure before model inference',
+    '"@type":"BlogPosting"',
+  ],
+  '/blog/verifiable-ai-execution/': [
+    'What a verifiable AI execution record can prove',
+    '"@type":"BlogPosting"',
+  ],
+  '/insights/ai-risk-control-map/': [
+    'Map AI risks to controls, evidence, and owners',
+    '"@type":"Article"',
+  ],
+  '/insights/prompt-injection-boundaries/': [
+    'Prompt injection is an execution-boundary problem',
+    '"@type":"Article"',
+  ],
+  '/insights/secure-inference-design/': [
+    'A secure inference boundary in four decisions',
+    '"@type":"Article"',
+  ],
 };
 
 const MIME = {
@@ -126,7 +173,7 @@ async function run() {
       }
     }
 
-    for (const route of REMOVED_LOCALE_ROUTES) {
+    for (const route of REMOVED_ROUTES) {
       const res = await fetch(`${base}${route}`);
       if (res.status !== 404) {
         console.error(`FAIL ${route} → expected 404, received ${res.status}`);
