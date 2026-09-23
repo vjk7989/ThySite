@@ -277,7 +277,9 @@ test('limits source changes from the pre-conversion baseline to approved text/da
     '+          linkURL="mailto:support@buckleson.com"',
   ]);
 
-  const contact = await source('src/components/sections/misc/ContactSection.astro');
+  const contact = await source(
+    'src/components/sections/misc/ContactSection.astro'
+  );
   assert.match(contact, /support@buckleson\.com/);
   assert.doesNotMatch(contact, /support@screwfast\.uk/);
 });
