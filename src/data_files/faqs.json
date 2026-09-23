@@ -1,13 +1,21 @@
 {
-  "subTitle": "Ask us about safer AI adoption, Hyper-0x, secure inference, and custom AI workflows.",
+  "subTitle": "Ask us about safer AI adoption, Hyper-0x, secure inference, agentic workflow boundaries, and custom AI work.",
   "faqs": [
     {
       "question": "What does Buckleson help with?",
       "answer": "Buckleson helps teams assess AI workflows, define control boundaries, reduce unnecessary sensitive-data exposure, and retain verifiable execution records where configured."
     },
     {
+      "question": "What is Hyper Tern?",
+      "answer": "Hyper Tern is Buckleson's routing and permission layer for bounded AI workflows. It helps define allowed actors, model routes, tools, data classes, and review points."
+    },
+    {
+      "question": "What is Hyper-ABS?",
+      "answer": "Hyper-ABS is Buckleson's abstraction approach for reducing unnecessary raw-data exposure before inference. It can reduce exposure, but it does not guarantee privacy by itself."
+    },
+    {
       "question": "What is Hyper-0x?",
-      "answer": "Hyper-0x is Buckleson's in-house verification layer for attributable AI execution records. It can support audit and operational review, but it does not prove that every AI output is safe or correct."
+      "answer": "Hyper-0x is Buckleson's in-house verification layer for attributable AI execution records. It supports audit and operational review, but it does not prove that every AI output is safe or correct."
     },
     {
       "question": "Where does blockchain fit?",
@@ -15,7 +23,7 @@
     },
     {
       "question": "Can Buckleson support secure inference?",
-      "answer": "Yes. Buckleson can help design inference boundaries around prompts, context, retrieval, tools, and outputs so unnecessary exposure is reduced before model calls."
+      "answer": "Yes. Buckleson can help design inference boundaries around prompts, context, retrieval, memory, tools, and outputs so unnecessary exposure is reduced before model calls."
     },
     {
       "question": "Do you build custom AI models?",

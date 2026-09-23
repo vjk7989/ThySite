@@ -105,7 +105,10 @@ test('sitePath handles root, nested, prefixed, fragment, and external URLs', asy
   assert.equal(sitePath(), '/ThySite/');
   assert.equal(sitePath('/'), '/ThySite/');
   assert.equal(sitePath('/products'), '/ThySite/products');
-  assert.equal(sitePath('products/item-a765/'), '/ThySite/products/item-a765/');
+  assert.equal(
+    sitePath('products/hyper-tern/'),
+    '/ThySite/products/hyper-tern/'
+  );
   assert.equal(sitePath('/ThySite'), '/ThySite');
   assert.equal(sitePath('/ThySite/products'), '/ThySite/products');
   assert.equal(sitePath('/ThySiteExtra'), '/ThySite/ThySiteExtra');
@@ -127,8 +130,8 @@ test('stripSiteBase handles project root, nested paths, and prefix collisions', 
   assert.equal(stripSiteBase('/ThySite'), '/');
   assert.equal(stripSiteBase('/ThySite/'), '/');
   assert.equal(
-    stripSiteBase('/ThySite/products/item-a765/'),
-    '/products/item-a765/'
+    stripSiteBase('/ThySite/products/hyper-tern/'),
+    '/products/hyper-tern/'
   );
   assert.equal(stripSiteBase('/products/'), '/products/');
   assert.equal(stripSiteBase('/'), '/');

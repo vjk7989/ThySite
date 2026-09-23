@@ -1,84 +1,98 @@
-# Final Text-only Rollback Verification
+# Buckleson Public Content and Route Conversion Final Gate
 
 Date: 2026-09-23
 
-Status: **GREEN**. The root runner observed zero exit codes for formatting, diff hygiene, focused tests, the production build, the full regression suite, and production smoke.
+Status: **GREEN**. The local gate is open; every required command returned an observed exit code of `0`.
 
-## Environment and working tree
+## Environment
 
 - Workspace: `G:\my-sitess\ThySite`
-- Test-runner role: no production or test code edited.
-- `git status --short` was inspected read-only and exited `0`.
-- The working tree contains the expected text-only rollback, formatter-normalization, documentation, and test changes.
-- This report is the only file edited by this test-runner turn.
+- Test-runner role: no product or test code edited.
+- Project-created temporary data and build output remained under `G:\my-sitess`.
 
-## Verification evidence
-
-### Full formatting
-
-Command: `npm run format:check`
-
-- Observed exit code: `0`
-- Formatter normalization is style-only; it does not introduce new product behavior or replace imagery.
-
-### Diff whitespace
-
-Command: `git diff --check`
-
-- Observed exit code: `0`
-- No diff whitespace errors were reported.
-
-### Focused rollback test before build
-
-Command: `node --test tests/text-only-rollback.test.mjs`
-
-- Observed exit code: `0`
-- Tests: 6
-- Passed: 6
-- Failed: 0
-- Skipped: 0
-
-### Production build
+## 1. Production build
 
 Command: `npm run build`
 
-- Observed exit code: `0`
+- Exit code: `0`
+- Astro check: 127 files, 0 errors, 0 warnings, 7 hints
 - Static output: 17 pages
 - Optimized images: 45
-- Astro errors: 0
-- Diagnostics: known restored-template Astro hints only
-- Visual assets remain the original template placeholders, as required by the text-only rollback scope.
+- Pagefind: 17 HTML files indexed
+- Build output: `G:\my-sitess\ThySite\dist`
 
-### Focused rollback test after build
+Non-failing diagnostics included restored-template unused/deprecated TypeScript hints, a test-file ineffective-`await` hint, the existing Vite `use astro:head-inject` preservation warning, and the empty `i18n` collection warning.
+
+## 2. Focused content and route conversion test
 
 Command: `node --test tests/text-only-rollback.test.mjs`
 
-- Observed exit code: `0`
+- Exit code: `0`
 - Tests: 6
 - Passed: 6
 - Failed: 0
 - Skipped: 0
-- The fresh built-output assertions passed.
+- Cancelled: 0
+- Todo: 0
+- Duration: 358.0417 ms
 
-### Full Node regression suite
+## 3. English-only and GitHub Pages base-path tests
+
+Command:
+
+```text
+node --test tests/english-only.test.mjs tests/github-pages-base-path.test.mjs
+```
+
+- Exit code: `0`
+- Tests: 13
+- Passed: 13
+- Failed: 0
+- Skipped: 0
+- Cancelled: 0
+- Todo: 0
+- Duration: 186.7291 ms
+
+## 4. Full Node regression suite
 
 Command: `node --test tests/*.test.mjs`
 
-- Observed exit code: `0`
+- Exit code: `0`
 - Tests: 48
 - Passed: 48
 - Failed: 0
 - Skipped: 0
+- Cancelled: 0
+- Todo: 0
+- Duration: 420.9459 ms
 
-### Production smoke
+## 5. Full formatting check
+
+Command: `npm run format:check`
+
+- Exit code: `0`
+- Result: `All matched files use Prettier code style!`
+
+## 6. Diff whitespace validation
+
+Command: `git diff --check`
+
+- Exit code: `0`
+- No whitespace errors were reported.
+
+## 7. Production smoke test
 
 Command: `npm run test:smoke`
 
-- Observed exit code: `0`
-- Restored `item-*` product routes returned the expected `200` responses.
-- Removed `hyper-*` product routes returned the expected `404` responses.
-- Removed locale routes returned the expected `404` responses.
+- Exit code: `0`
+- Assertions: 42
+- Passed: 42
+- Failed: 0
+- Expected `200` responses verified: 17
+- Expected `404` responses verified: 25
+
+Smoke coverage included the homepage and approved headline, all current Hyper product routes, all Buckleson blog and insight routes, contact, documentation, services, placeholder-route removals, and removed locale boundaries.
 
 ## Conclusion
 
-The text-only rollback gate is green. The template structure, visual design, components, routes, and placeholder assets are restored; public copy remains Buckleson-specific. Formatter normalization is style-only, and all required checks completed with observed zero exit codes.
+The Buckleson public-content and route-conversion local gate is open. The fresh production build, focused content assertions, English/base-path checks, all 48 regressions, formatting, diff whitespace, and all 42 production route assertions passed with observed zero exit codes.

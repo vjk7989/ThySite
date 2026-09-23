@@ -1,6 +1,6 @@
 {
-  "title": "Simple Engagement Paths",
-  "subTitle": "Start with one bounded workflow before expanding AI adoption.",
+  "title": "Engagement Paths",
+  "subTitle": "Start with one bounded AI workflow before expanding adoption.",
   "badge": "Recommended",
   "thirdOption": "Need a custom deployment?",
   "btnText": "Request an Assessment",
@@ -8,13 +8,13 @@
   "starterKit": {
     "name": "Assess",
     "description": "Best for first workflow review",
-    "price": "0",
+    "price": "Scope",
     "cents": "",
-    "billingFrequency": "scope first",
+    "billingFrequency": "before pilot",
     "features": [
-      "Workflow and data map",
-      "Control-boundary review",
-      "Evidence requirements"
+      "Actor, data, tool, and route map",
+      "Prompt-injection and excessive-agency review",
+      "Evidence and escalation requirements"
     ],
     "purchaseBtnTitle": "Start Assessment",
     "purchaseLink": "/ThySite/contact/"

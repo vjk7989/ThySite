@@ -11,18 +11,27 @@ const DIST = resolve(ROOT, 'dist');
 const execFileAsync = promisify(execFile);
 
 const PRODUCT_FILES = [
-  'item-a765.md',
-  'item-b203.md',
-  'item-f303.md',
-  'item-t845.md',
+  'hyper-0x.md',
+  'hyper-abs.md',
+  'hyper-tern.md',
+  'hyper-wallet.md',
 ];
-const BLOG_FILES = ['post-1.md', 'post-2.md', 'post-3.md'];
-const INSIGHT_FILES = ['insight-1.md', 'insight-2.md', 'insight-3.md'];
+const BLOG_FILES = [
+  'agentic-ai-control-boundaries.md',
+  'secure-inference-data-minimization.md',
+  'verifiable-ai-execution-records.md',
+];
+const INSIGHT_FILES = [
+  'blockchain-verification-limits.md',
+  'llm-top-10-control-map.md',
+  'owasp-agentic-threat-boundaries.md',
+];
 
 const TEXT_ONLY_SOURCE_CHANGES = [
   ...BLOG_FILES.map(name => `src/content/blog/en/${name}`),
   ...INSIGHT_FILES.map(name => `src/content/insights/en/${name}`),
   ...PRODUCT_FILES.map(name => `src/content/products/en/${name}`),
+  'src/content/docs/welcome-to-docs.mdx',
   'src/copy/en.ts',
   'src/data_files/faqs.json',
   'src/data_files/features.json',
@@ -158,7 +167,7 @@ test('restores the template visual, component, theme, and contact-route seams', 
   assert.equal(packageJson.dependencies.clipboard, '^2.0.11');
 });
 
-test('restores original content filenames and removes visual-conversion slugs', async () => {
+test('uses Buckleson content slugs and removes rollback placeholder filenames', async () => {
   assert.deepEqual(await filesBelow('src/content/products/en'), PRODUCT_FILES);
   assert.deepEqual(await filesBelow('src/content/blog/en'), BLOG_FILES);
   assert.deepEqual(await filesBelow('src/content/insights/en'), INSIGHT_FILES);
@@ -166,13 +175,7 @@ test('restores original content filenames and removes visual-conversion slugs', 
   const allContent = await filesBelow('src/content');
   assert.deepEqual(
     allContent.filter(path =>
-      /(?:^|\/)hyper-(?:tern|abs|0x|wallet)\.mdx?$/.test(path)
-    ),
-    []
-  );
-  assert.deepEqual(
-    allContent.filter(path =>
-      /(?:agentic-control-boundaries|reducing-data-exposure|verifiable-ai-execution|ai-risk-control-map|prompt-injection-boundaries|secure-inference-design)\.mdx?$/.test(
+      /(?:^|\/)(?:item-a765|item-b203|item-f303|item-t845|post-[123]|insight-[123])\.mdx?$/.test(
         path
       )
     ),
@@ -221,14 +224,29 @@ test('keeps public English text Buckleson-specific while allowing truthful templ
   );
 });
 
-test('limits source changes from the pre-conversion baseline to approved text/data/content, contact email text, and two public URLs', async () => {
+test('limits source changes from the pre-conversion baseline to approved content/data, route slugs, contact email text, and two public URLs', async () => {
   const { stdout: changedOutput } = await execFileAsync(
     'git',
     ['diff', '--name-only', 'f82578d^', '--', 'src'],
     { cwd: ROOT, encoding: 'utf8' }
   );
   const changedPaths = changedOutput.split(/\r?\n/).filter(Boolean).sort();
-  assert.deepEqual(changedPaths, TEXT_ONLY_SOURCE_CHANGES);
+  assert.deepEqual(
+    changedPaths,
+    [
+      ...TEXT_ONLY_SOURCE_CHANGES,
+      'src/content/blog/en/post-1.md',
+      'src/content/blog/en/post-2.md',
+      'src/content/blog/en/post-3.md',
+      'src/content/insights/en/insight-1.md',
+      'src/content/insights/en/insight-2.md',
+      'src/content/insights/en/insight-3.md',
+      'src/content/products/en/item-a765.md',
+      'src/content/products/en/item-b203.md',
+      'src/content/products/en/item-f303.md',
+      'src/content/products/en/item-t845.md',
+    ].sort()
+  );
 
   const { stdout: homePatch } = await execFileAsync(
     'git',
@@ -284,25 +302,34 @@ test('limits source changes from the pre-conversion baseline to approved text/da
   assert.doesNotMatch(contact, /support@screwfast\.uk/);
 });
 
-test('built output serves restored routes with Buckleson copy and no hyper-slug pages', async () => {
+test('built output serves Buckleson routes with conservative copy and no rollback placeholder slugs', async () => {
   const expectedPages = new Map([
-    ['index.html', 'Use AI safely with'],
+    ['index.html', 'Use AI safely. Prove every action.'],
     ['products/index.html', 'Buckleson Platform'],
-    ['products/item-a765/index.html', 'Hyper Tern'],
-    ['products/item-b203/index.html', 'Hyper-ABS'],
-    ['products/item-f303/index.html', 'Hyper-0x'],
-    ['products/item-t845/index.html', 'Hyper Wallet'],
-    ['blog/post-1/index.html', 'Start AI Safety with Control Boundaries'],
-    ['blog/post-2/index.html', 'Reducing Data Exposure Before Inference'],
-    ['blog/post-3/index.html', 'Why AI Workflows Need Execution Evidence'],
-    ['insights/insight-1/index.html', 'Agentic AI Threats Need Boundaries'],
+    ['products/hyper-tern/index.html', 'Hyper Tern'],
+    ['products/hyper-abs/index.html', 'Hyper-ABS'],
+    ['products/hyper-0x/index.html', 'Hyper-0x'],
+    ['products/hyper-wallet/index.html', 'Hyper Wallet'],
     [
-      'insights/insight-2/index.html',
+      'blog/agentic-ai-control-boundaries/index.html',
+      'Agentic AI Control Boundaries',
+    ],
+    [
+      'blog/secure-inference-data-minimization/index.html',
       'Secure Inference Starts with Data Minimization',
     ],
     [
-      'insights/insight-3/index.html',
-      'What Blockchain Can and Cannot Prove for AI',
+      'blog/verifiable-ai-execution-records/index.html',
+      'Verifiable AI Execution Records',
+    ],
+    [
+      'insights/owasp-agentic-threat-boundaries/index.html',
+      'OWASP Agentic Threat Boundaries',
+    ],
+    ['insights/llm-top-10-control-map/index.html', 'LLM Top 10 Control Map'],
+    [
+      'insights/blockchain-verification-limits/index.html',
+      'Blockchain Verification Limits for AI',
     ],
     ['contact/index.html', 'Request an AI safety assessment'],
   ]);
@@ -324,11 +351,25 @@ test('built output serves restored routes with Buckleson copy and no hyper-slug 
   );
   assert.match(homepage, /\/ThySite\/banner-pattern\.svg/);
 
-  for (const slug of ['hyper-tern', 'hyper-abs', 'hyper-0x', 'hyper-wallet']) {
+  for (const slug of ['item-a765', 'item-b203', 'item-f303', 'item-t845']) {
     assert.equal(
       await exists(`dist/products/${slug}/index.html`),
       false,
       `/products/${slug}/ must not be built`
     );
   }
+  for (const slug of ['post-1', 'post-2', 'post-3']) {
+    assert.equal(await exists(`dist/blog/${slug}/index.html`), false);
+  }
+  for (const slug of ['insight-1', 'insight-2', 'insight-3']) {
+    assert.equal(await exists(`dist/insights/${slug}/index.html`), false);
+  }
+
+  const allBuiltCopy = [...expectedPages.keys()]
+    .map(path => readFile(resolve(DIST, path), 'utf8'))
+    .reduce(async (acc, next) => `${await acc}\n${await next}`, '');
+  assert.doesNotMatch(
+    visibleText(await allBuiltCopy),
+    /guaranteed privacy|guaranteed compliance|zero exposure|solves all AI risks|prevents prompt injection/i
+  );
 });

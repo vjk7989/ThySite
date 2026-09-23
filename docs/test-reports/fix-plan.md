@@ -1,35 +1,31 @@
-# Text-Only Buckleson Rollback Fix Plan
+# Buckleson Public Content and Route Conversion Fix Plan
 
 Date: 2026-09-23
 
-Status: **RESOLVED**
+Status: **OPEN — one stale smoke expectation remains**
 
-## Ranked Root Cause Analysis
+## Ranked root-cause analysis
 
-1. **Missing restored dependencies in local `node_modules`**
-   - Evidence: `npm run build` exited `1` with missing `gsap`, `gsap/ScrollTrigger`, and `clipboard` modules.
-   - Cause: the rollback restored template dependencies in `package.json`/`pnpm-lock.yaml`, but the local install still reflected the visual-conversion dependency set.
-   - Fix: ran a frozen lockfile install through pinned `pnpm@12.5.1` with caches/stores under `G:\my-sitess`.
+### 1. The homepage smoke expectation still contains the superseded headline
 
-2. **Contact component retained a hardcoded ScrewFast email**
-   - Evidence: source search found `support@screwfast.uk` in `src/components/sections/misc/ContactSection.astro`.
-   - Cause: restored template component contained visible hardcoded contact text outside the copy table.
-   - Fix: changed only the visible email/link text to `support@buckleson.com` and updated the rollback guard to allow that exact text-only component diff.
+- **Failure:** `npm run test:smoke` served `/` successfully but reported `missing Use AI safely with`.
+- **Evidence:** `src/copy/en.ts`, `docs/site-content-map.md`, the focused built-output test, and the fresh homepage all agree on the approved heading `Use AI safely. Prove every action.`. The other 41 smoke assertions passed.
+- **Classification:** stale smoke-test data, not a production failure. Reverting production to `Use AI safely with` would contradict the approved copy and an already-green focused assertion.
+- **Markup detail:** the generated heading contains a branding span between its two text segments: `Use AI safely. <span ...>Prove every action.</span>`. Because the smoke runner uses literal `html.includes`, one full plain-text string would not be contiguous in the raw HTML.
+- **Smallest reliable fix:** replace the single stale homepage expectation with two exact fragments, `Use AI safely.` and `Prove every action.`. This keeps the smoke check independent of presentation classes while verifying both approved parts. Do not weaken it to only `Use AI safely`, and do not couple the assertion to the span's Tailwind classes.
 
-3. **Unbased `/contact` links in content**
-   - Evidence: `node --test tests/*.test.mjs` failed `all built HTML navigation and resource URLs stay within the project base` with `index.html is not project-base-prefixed: /contact`.
-   - Cause: restored product and pricing content rendered literal CTA URLs, bypassing `sitePath`/`localePath`.
-   - Fix: changed those content URLs to `/ThySite/contact/`.
+## Repair and rerun sequence
 
-## Final Verification
+1. In `scripts/smoke.mjs`, replace only `'Use AI safely with'` in `EXPECTATIONS['/']` with the two exact approved text fragments.
+2. Format only `scripts/smoke.mjs` with the pinned Prettier and run its targeted `--check`; require exit code `0`.
+3. Run `node --test tests/smoke-path.test.mjs`; require exit code `0`.
+4. Run `npm run test:smoke` against the current fresh build; require all 42 assertions to pass and exit code `0`.
+5. Run `npm run format:check` and `git diff --check`; require zero exit codes.
+6. For the final recorded gate, rerun the build-first focused, related, and full test sequence before the final smoke command. Every command must exit `0` before the gate opens.
 
-All required local gates now pass:
+## Scope guard
 
-- `npm run build` -> exit `0`
-- `node --test tests/text-only-rollback.test.mjs` -> exit `0`, `6/6` passed
-- `node --test tests/*.test.mjs` -> exit `0`, `48/48` passed
-- `npm run test:smoke` -> exit `0`
-
-## Remaining Risk
-
-Template imagery remains intentionally mismatched until the user selects which images to keep. This is expected for the text-only rollback pass.
+- Do not edit production copy or the content map.
+- Do not change the smoke runner's matching algorithm for one stale value.
+- Do not assert presentation classes or raw span markup.
+- Do not omit either half of the approved headline from smoke coverage.

@@ -1,22 +1,22 @@
 [
   {
-    "heading": "Explicit Control Boundaries",
-    "content": "Define who can invoke an AI workflow, which tools it can reach, and what actions require review before rollout.",
+    "heading": "Route and Permission Control",
+    "content": "Use Hyper Tern concepts to define who can invoke an AI workflow, which model route it may use, what tools it may reach, and where human review remains required.",
     "svg": "groups"
   },
   {
     "heading": "Privacy-Aware Inference",
-    "content": "Use Hyper-ABS concepts to reduce unnecessary raw-data exposure before model calls. It helps lower exposure but does not guarantee privacy by itself.",
+    "content": "Use Hyper-ABS concepts to reduce unnecessary raw-data exposure before inference through data classification, context minimization, and documented workflow boundaries.",
     "svg": "verified"
   },
   {
     "heading": "Verifiable Execution Records",
-    "content": "Use Hyper-0x to retain attributable records of configured AI actions so teams can review what was requested, allowed, and executed.",
+    "content": "Use Hyper-0x to preserve attributable records of configured AI actions so reviewers can inspect what was requested, allowed, executed, and escalated.",
     "svg": "books"
   },
   {
     "heading": "Custom AI Support",
-    "content": "Plan custom model and fine-tuning work around data boundaries, evaluation expectations, and practical deployment controls.",
+    "content": "Plan custom model and fine-tuning work around data boundaries, evaluation expectations, deployment controls, and realistic operating limits.",
     "svg": "frame"
   }
 ]

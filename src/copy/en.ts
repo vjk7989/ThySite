@@ -5,8 +5,10 @@ import pricing from '@data/pricing.json';
 /**
  * English copy table for the marketing site.
  *
- * This pass is text-only: paths, components, imagery, theme and forms remain
- * from the template while visible public copy is reframed for Buckleson.
+ * Public Buckleson copy table.
+ *
+ * This pass updates text and public content slugs only. Template imagery,
+ * theme, layout, components, forms, and dependencies remain unchanged.
  */
 export const en = {
   site: {
@@ -188,62 +190,62 @@ export const en = {
   },
 
   home: {
-    banner: 'Explore the current Buckleson site on GitHub',
+    banner: 'AI adoption is inevitable. Trust is not.',
     hero: {
       title:
-        'Use AI safely with <span class="text-brand-500 dark:text-yellow-400">Buckleson</span>',
+        'Use AI safely. <span class="text-brand-500 dark:text-yellow-400">Prove every action.</span>',
       subTitle:
-        'Buckleson helps teams control AI access, reduce sensitive-data exposure, and keep verifiable records of important AI actions.',
+        'Buckleson helps organizations adopt AI with explicit control boundaries, privacy-aware inference, and verifiable execution records powered by Hyper-0x.',
       primaryBtn: 'Explore the Platform',
-      secondaryBtn: 'Request an Assessment',
-      rating: '<span class="font-bold">Control</span> first',
-      reviews: 'Designed for bounded AI workflows',
+      secondaryBtn: 'Request an AI Safety Assessment',
+      rating: '<span class="font-bold">Bounded</span> by design',
+      reviews: 'Control, protect, verify',
       imageAlt:
         'Stack of template product boxes retained as temporary placeholder imagery',
     },
     clients: {
-      title: 'Built for AI operators',
+      title: 'Built for teams adopting AI responsibly',
       subTitle:
-        'Support organizations, AI teams, developers, and individuals adopting AI with clearer control boundaries.',
+        'Support organizations, AI teams, developers, and individuals that need safer ways to connect models, data, tools, and review.',
     },
     featuresGeneral: {
-      title: 'AI adoption needs control, privacy, and proof',
+      title: 'AI adoption needs boundaries, minimization, and evidence',
       subTitle:
-        'Buckleson focuses on the practical risks around agentic AI and LLM workflows: who can invoke them, what data reaches them, what tools they can use, and what evidence remains afterward.',
+        'Buckleson focuses on practical risks around agentic AI and LLM applications: prompt manipulation, sensitive-data exposure, excessive agency, untrusted tools, and actions that are hard to reconstruct later.',
       imageAlt: 'Template product boxes retained as placeholder imagery',
     },
     featuresNavs: {
       title:
-        'Shape <span class="text-brand-500 dark:text-yellow-400">Buckleson</span> around the AI workflow you actually run.',
+        'Map one workflow through <span class="text-brand-500 dark:text-yellow-400">control, protection, and verification</span>.',
       tabs: {
         tools: {
           heading: 'Control with Hyper Tern',
           content:
-            'Hyper Tern is the routing and permission layer for configured models, tools, infrastructure, and users. It helps make allowed execution paths explicit.',
+            'Hyper Tern defines who can invoke a workflow, which model route it may use, which tools it may reach, and where human review remains required.',
           alt: 'Heavy equipment placeholder image retained from the template',
         },
         dashboard: {
           heading: 'Protect with Hyper-ABS',
           content:
-            'Hyper-ABS is designed to reduce unnecessary raw-data exposure before inference. It supports safer processing, but it does not guarantee privacy by itself.',
+            'Hyper-ABS is designed to reduce unnecessary raw-data exposure before inference by minimizing or transforming context where the workflow allows it.',
           alt: 'Dashboard placeholder image retained from the template',
         },
         features: {
           heading: 'Verify with Hyper-0x',
           content:
-            'Hyper-0x preserves attributable execution records so teams can review what was requested, what was allowed, and what happened.',
+            'Hyper-0x preserves attributable execution records so reviewers can understand what was requested, allowed, executed, and escalated.',
           alt: 'Building-frame placeholder image retained from the template',
         },
       },
     },
     testimonials: {
-      title: 'Move from AI idea to controlled pilot',
+      title: 'Move from AI idea to bounded pilot',
       subTitle:
-        'Start with one bounded workflow, define its allowed actions, reduce unnecessary data exposure, and keep useful evidence for review.',
+        'Start with one workflow, define its route and data boundary, reduce unnecessary exposure, and keep useful evidence for review.',
       quotes: [
         {
           content:
-            'Buckleson frames AI safety as an operating discipline: define the route, reduce exposure, verify the action, and keep humans in the loop where risk demands it.',
+            'Buckleson frames AI safety as an operating discipline: define the route, minimize exposure, verify the action, and keep humans in the loop where risk demands it.',
           author: 'Buckleson Research',
           role: 'AI safety and trust infrastructure',
         },
@@ -269,29 +271,29 @@ export const en = {
     },
     faqTitle: 'Frequently<br />asked questions',
     heroAlt: {
-      title: 'Make AI workflows accountable',
+      title: 'Request a Buckleson AI safety assessment',
       subTitle:
-        'Buckleson is adapting this template one step at a time. This pass changes text only; imagery remains temporary until approved.',
-      btn: 'Continue with Github',
+        'Bring one real workflow: the model route, data sources, tools, actions, and review needs. We will help map practical control boundaries first.',
+      btn: 'Request an Assessment',
     },
   },
 
   services: {
     title: 'Solutions',
     metaDescription:
-      'Buckleson helps teams assess AI risk, design secure inference boundaries, and develop custom AI workflows with verifiable execution records.',
+      'Buckleson helps teams assess agentic AI risk, design secure inference boundaries, and build custom AI workflows with verifiable execution records.',
     ogTitle: 'AI Safety Solutions | Buckleson',
     intro: {
-      title: 'Safer AI adoption starts with a bounded workflow',
+      title: 'Safer AI adoption starts with one bounded workflow',
       subTitle:
-        'Buckleson helps you identify where AI touches data, tools, infrastructure, and decisions, then design controls around that execution path.',
+        'Buckleson helps identify where AI touches data, tools, infrastructure, and decisions, then designs controls around that execution path.',
       cta: 'Request an Assessment',
     },
     articles: {
       guidance: {
         title: 'AI Safety Assessment',
         subTitle:
-          'Map one AI workflow from actor to model to tool call. We identify sensitive data, allowed actions, required review, and evidence that should be retained.',
+          'Map one AI workflow from actor to model to tool call. We identify prompt-injection exposure, sensitive data, allowed actions, required review, and evidence that should be retained.',
         imageAlts: [
           'Blueprints and digital tablet retained as placeholder imagery.',
           'Person working in the office',
@@ -300,7 +302,7 @@ export const en = {
       craftsmanship: {
         title: 'Secure Inference Design',
         subTitle:
-          'Define how prompts, context, retrieval, tools, and outputs move through the system. The goal is to reduce exposure and make enforcement points visible.',
+          'Define how prompts, context, retrieval, memory, tools, and outputs move through the system. The goal is to reduce exposure and make enforcement points visible.',
         imageAlts: ['Before and after placeholder image retained temporarily'],
         cta: 'Learn More',
       },
@@ -316,7 +318,7 @@ export const en = {
       maintenance: {
         title: 'Evidence and Operations',
         subTitle:
-          'Hyper-0x records can support audit and operating review. They do not prove that an AI answer is correct, but they help teams understand what happened.',
+          'Hyper-0x records can support audit, incident review, and operating review. They do not prove that an AI answer is correct, but they help teams understand what happened.',
         imageAlts: [
           'Worker holding a power tool retained as placeholder imagery',
         ],
@@ -324,7 +326,7 @@ export const en = {
       bespoke: {
         title: 'Enterprise Control Boundaries',
         subTitle:
-          'For larger organizations, Buckleson helps separate what is publicly usable, what requires technical evidence, and what should stay investor-only or internal.',
+          'For larger organizations, Buckleson helps separate public use cases, internal workflows, regulated actions, and high-impact decisions so each boundary can be reviewed separately.',
         imageAlts: [
           'In-progress structure retained as placeholder imagery',
           'Building placeholder image retained temporarily',
@@ -348,10 +350,10 @@ export const en = {
   },
 
   contact: {
-    title: 'Contact',
+    title: 'AI Safety Assessment',
     metaDescription:
       'Request a Buckleson AI safety assessment for a bounded workflow.',
-    ogTitle: 'Contact Buckleson',
+    ogTitle: 'Request an AI Safety Assessment | Buckleson',
     heading: 'Request an AI safety assessment',
     subTitle:
       'Tell us which AI workflow you want to assess, what data it touches, and what tools or decisions it can affect.',
@@ -361,9 +363,9 @@ export const en = {
     firstName: 'First Name',
     lastName: 'Last Name',
     details: 'Workflow details',
-    send: 'Send Message',
+    send: 'Request Assessment',
     demoMessage:
-      'Thanks! (Demo only - wire a form endpoint before receiving real messages.)',
+      'Thanks! (Demo only - wire a form endpoint before receiving real assessment requests.)',
     knowledgeHeading: 'Knowledgebase',
     knowledgeContent:
       'Browse AI safety notes, platform boundaries, and implementation guidance.',
@@ -374,17 +376,17 @@ export const en = {
     officeHeading: 'Buckleson',
     officeContent: 'AI safety and trust infrastructure',
     emailHeading: 'Contact us by email',
-    emailContent: 'Prefer the written word? Drop us an email at',
+    emailContent: 'Prefer the written word? Email Buckleson at',
   },
 
   blogIndex: {
     title: 'Insights',
     metaDescription:
-      'AI safety notes from Buckleson on agentic workflows, secure inference, and verifiable execution.',
+      'AI safety notes from Buckleson on agentic workflows, secure inference, verifiable execution, and conservative deployment boundaries.',
     ogTitle: 'AI Safety Insights | Buckleson',
     heading: 'AI Safety Insights',
     subTitle:
-      'Read practical notes about control boundaries, data exposure, execution evidence, and safer AI adoption.',
+      'Read practical notes about control boundaries, data exposure, execution evidence, OWASP-aligned risk framing, and safer AI adoption.',
     insightsHeading: 'Field Notes',
     insightsSubTitle:
       'Short explainers for teams evaluating where AI should be allowed to act and what proof should remain afterward.',
