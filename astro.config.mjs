@@ -7,6 +7,9 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://vjk7989.github.io',
   base: '/ThySite',
+  image: {
+    domains: ['images.unsplash.com'],
+  },
   prefetch: true,
   integrations: [
     sitemap(),

@@ -1,5 +1,6 @@
 ---
 import BrandLogo from '@components/BrandLogo.astro';
+import docsLogo from '@images/starlight/docs_logo.svg?raw';
 import type { Props } from '@astrojs/starlight/props';
 import { sitePath } from '@utils/paths';
 
@@ -12,9 +13,12 @@ const docs = sitePath('/' + locale + 'welcome-to-docs/');
   <a class="main-logo" href={main} aria-label="Buckleson">
     <BrandLogo class="text-lg" />
   </a>
-  <a class="docs-logo" href={docs} aria-label="Buckleson Platform">
-    Platform
-  </a>
+  <a
+    class="docs-logo"
+    href={docs}
+    set:html={docsLogo}
+    aria-label="Buckleson Platform"
+  />
 </span>
 
 <style>
@@ -38,14 +42,12 @@ const docs = sitePath('/' + locale + 'welcome-to-docs/');
     transition: transform 250ms cubic-bezier(0.33, 1, 0.68, 1);
   }
 
-  .site-title a:hover {
+  .site-title :global(svg) {
+    width: auto;
+    height: auto;
+  }
+  .site-title a:hover :global(svg) {
     transform: translateY(calc(0.1rem * -1));
     transition: transform 250ms cubic-bezier(0.33, 1, 0.68, 1);
-  }
-
-  .docs-logo {
-    color: var(--sl-color-gray-2);
-    font-size: 0.875rem;
-    font-weight: 600;
   }
 </style>

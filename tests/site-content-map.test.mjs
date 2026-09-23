@@ -177,12 +177,16 @@ test('uses bounded product language and records prohibited claim forms', async (
   );
 });
 
-test('keeps direct Cal.com booking until a backend and privacy plan is approved', async () => {
+test('defers assessment-form implementation until backend and privacy are defined', async () => {
   const order = section(await contentMap(), 'Replacement order');
 
   assert.match(
     order,
-    /^5\. Replace insights\/blog content and keep assessment actions as direct Cal\.com booking links unless a future backend and privacy plan is approved\.$/m
+    /implement the assessment form only after its backend and privacy handling are defined/i
   );
-  assert.doesNotMatch(order, /implement the assessment form/i);
+  assert.ok(
+    order.indexOf('Replace insights/blog content') <
+      order.indexOf('implement the assessment form'),
+    'content replacement must precede form implementation'
+  );
 });

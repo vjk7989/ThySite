@@ -1,0 +1,38 @@
+{
+  "title": "Simple Engagement Paths",
+  "subTitle": "Start with one bounded workflow before expanding AI adoption.",
+  "badge": "Recommended",
+  "thirdOption": "Need a custom deployment?",
+  "btnText": "Request an Assessment",
+
+  "starterKit": {
+    "name": "Assess",
+    "description": "Best for first workflow review",
+    "price": "0",
+    "cents": "",
+    "billingFrequency": "scope first",
+    "features": [
+      "Workflow and data map",
+      "Control-boundary review",
+      "Evidence requirements"
+    ],
+    "purchaseBtnTitle": "Start Assessment",
+    "purchaseLink": "/ThySite/contact/"
+  },
+
+  "professionalToolbox": {
+    "name": "Pilot",
+    "description": "Best for controlled rollout",
+    "price": "Custom",
+    "cents": "",
+    "billingFrequency": "per engagement",
+    "features": [
+      "Hyper Tern route planning",
+      "Hyper-ABS inference boundary",
+      "Hyper-0x execution records",
+      "Operational review plan"
+    ],
+    "purchaseBtnTitle": "Plan a Pilot",
+    "purchaseLink": "/ThySite/contact/"
+  }
+}

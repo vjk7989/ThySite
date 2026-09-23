@@ -1,0 +1,395 @@
+{
+  "desktopLight": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 dark lenis",
+    "bodyBg": "oklch(0.269 0 0)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [1440, 1000],
+    "scrollWidth": 1440,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": null
+  },
+  "mobileLight": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 default lenis",
+    "bodyBg": "rgb(255, 255, 255)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [390, 844],
+    "scrollWidth": 390,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": "default"
+  },
+  "desktopDark": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis dark",
+    "bodyBg": "oklch(0.269 0 0)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [1440, 1000],
+    "scrollWidth": 1440,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": "dark"
+  },
+  "darkReload": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis dark",
+    "bodyBg": "oklch(0.269 0 0)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [1440, 1000],
+    "scrollWidth": 1440,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": "dark"
+  },
+  "desktopRestored": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 lenis light default",
+    "bodyBg": "rgb(255, 255, 255)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [1440, 1000],
+    "scrollWidth": 1440,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": "default"
+  },
+  "lightReload": {
+    "url": "http://127.0.0.1:4177/ThySite/",
+    "title": "Buckleson",
+    "htmlClass": "scrollbar-hide scroll-pt-16 astro-mjbmmst2 default lenis",
+    "bodyBg": "rgb(255, 255, 255)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "viewport": [1440, 1000],
+    "scrollWidth": 1440,
+    "overflow": false,
+    "wordmark": {
+      "visible": true,
+      "text": "Buckleson"
+    },
+    "nav": [
+      {
+        "text": "Buckleson",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Home",
+        "href": "http://127.0.0.1:4177/ThySite/"
+      },
+      {
+        "text": "Platform",
+        "href": "http://127.0.0.1:4177/ThySite/products"
+      },
+      {
+        "text": "Solutions",
+        "href": "http://127.0.0.1:4177/ThySite/services"
+      },
+      {
+        "text": "Insights",
+        "href": "http://127.0.0.1:4177/ThySite/blog"
+      },
+      {
+        "text": "Contact",
+        "href": "http://127.0.0.1:4177/ThySite/contact"
+      },
+      {
+        "text": "Terms and Conditions",
+        "href": "http://127.0.0.1:4177/ThySite/#"
+      }
+    ],
+    "styles": ["http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css"],
+    "scripts": [
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+      "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+      "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js"
+    ],
+    "themeStorage": "default"
+  },
+  "darkClick": true,
+  "lightClick": true,
+  "navChecks": [
+    {
+      "url": "http://127.0.0.1:4177/ThySite/",
+      "landed": "http://127.0.0.1:4177/ThySite/",
+      "title": "Buckleson"
+    },
+    {
+      "url": "http://127.0.0.1:4177/ThySite/products",
+      "landed": "http://127.0.0.1:4177/ThySite/products/",
+      "title": "Products | Buckleson"
+    },
+    {
+      "url": "http://127.0.0.1:4177/ThySite/services",
+      "landed": "http://127.0.0.1:4177/ThySite/services/",
+      "title": "Services | Buckleson"
+    },
+    {
+      "url": "http://127.0.0.1:4177/ThySite/blog",
+      "landed": "http://127.0.0.1:4177/ThySite/blog/",
+      "title": "Blog | Buckleson"
+    },
+    {
+      "url": "http://127.0.0.1:4177/ThySite/contact",
+      "landed": "http://127.0.0.1:4177/ThySite/contact/",
+      "title": "Contact | Buckleson"
+    },
+    {
+      "url": "http://127.0.0.1:4177/ThySite/#",
+      "landed": "http://127.0.0.1:4177/ThySite/#",
+      "title": "Buckleson"
+    }
+  ],
+  "network": {
+    "localResponseCount": 200,
+    "cssJsCount": 77,
+    "cssJsStatuses": [
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/MainLayout.D1oVb71X.css",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_0_lang.Bp4oeFBS.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/page.CS1Tyme3.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/prefetch.B_oNKJOF.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/lenisSmoothScroll.COuY16MA.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/client.ChiJXsfH.js",
+        "status": 200
+      },
+      {
+        "url": "http://127.0.0.1:4177/ThySite/_astro/MainLayout.astro_astro_type_script_index_1_lang.BHljfcUr.js",
+        "status": 200
+      }
+    ],
+    "badLocal": [],
+    "loadingFailures": []
+  },
+  "errors": {
+    "exceptions": [],
+    "consoleErrors": [],
+    "logErrors": []
+  },
+  "assertions": {
+    "desktopStyled": true,
+    "mobileStyled": true,
+    "cssJs200": true,
+    "navRoutes": true,
+    "darkApplied": true,
+    "darkPersisted": true,
+    "lightRestored": true,
+    "lightPersisted": true,
+    "noErrors": true
+  },
+  "pass": true
+}

@@ -2,6 +2,8 @@
 import MainLayout from '@/layouts/MainLayout.astro';
 import InsightDetail from '@components/sections/insights/InsightDetail.astro';
 import type { CollectionEntry } from 'astro:content';
+import { localeOf } from '@utils/content';
+import { getCopy } from '@/copy';
 
 /** One insight page. The locale is the entry's own. */
 interface Props {
@@ -9,12 +11,14 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const locale = localeOf(post);
+const t = getCopy(locale);
 ---
 
 <MainLayout
   title={post.data.title}
   description={post.data.description}
-  section="Insights"
+  section={t.insights.ogSection}
   kind={{ type: 'Article', image: post.data.cardImage.src }}
 >
   <InsightDetail post={post} />

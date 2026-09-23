@@ -36,7 +36,7 @@ const SORTERS: {
   ) => number;
 } = {
   blog: (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  products: (a, b) => a.data.order - b.data.order,
+  products: (a, b) => a.data.main.id - b.data.main.id,
   insights: () => 0,
 };
 

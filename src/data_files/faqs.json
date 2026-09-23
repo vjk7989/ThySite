@@ -1,0 +1,29 @@
+{
+  "subTitle": "Ask us about safer AI adoption, Hyper-0x, secure inference, and custom AI workflows.",
+  "faqs": [
+    {
+      "question": "What does Buckleson help with?",
+      "answer": "Buckleson helps teams assess AI workflows, define control boundaries, reduce unnecessary sensitive-data exposure, and retain verifiable execution records where configured."
+    },
+    {
+      "question": "What is Hyper-0x?",
+      "answer": "Hyper-0x is Buckleson's in-house verification layer for attributable AI execution records. It can support audit and operational review, but it does not prove that every AI output is safe or correct."
+    },
+    {
+      "question": "Where does blockchain fit?",
+      "answer": "Blockchain-style verification is used for evidence and accountability around configured execution records. It is not a privacy guarantee and does not replace ordinary security controls."
+    },
+    {
+      "question": "Can Buckleson support secure inference?",
+      "answer": "Yes. Buckleson can help design inference boundaries around prompts, context, retrieval, tools, and outputs so unnecessary exposure is reduced before model calls."
+    },
+    {
+      "question": "Do you build custom AI models?",
+      "answer": "Buckleson can support custom model and fine-tuning work when the data boundary, evaluation plan, and deployment controls are clearly defined."
+    },
+    {
+      "question": "Does Buckleson solve every AI risk?",
+      "answer": "No. Buckleson is designed to reduce exposure, clarify permissions, and preserve evidence. Human review, conventional security, model evaluation, and operational monitoring remain necessary."
+    }
+  ]
+}
