@@ -1,73 +1,84 @@
-# Text-Only Buckleson Rollback Gate
+# Final Text-only Rollback Verification
 
 Date: 2026-09-23
 
-Status: **PASSED - gate open**
+Status: **GREEN**. The root runner observed zero exit codes for formatting, diff hygiene, focused tests, the production build, the full regression suite, and production smoke.
 
-## Scope
+## Environment and working tree
 
-Verified the rollback commit that reverts the full visual conversion from `f82578d`, restores the pre-conversion ScrewFast template structure/images/theme/components/routes, and reapplies only Buckleson public text and URL copy.
+- Workspace: `G:\my-sitess\ThySite`
+- Test-runner role: no production or test code edited.
+- `git status --short` was inspected read-only and exited `0`.
+- The working tree contains the expected text-only rollback, formatter-normalization, documentation, and test changes.
+- This report is the only file edited by this test-runner turn.
 
-## Environment Note
+## Verification evidence
 
-The global Corepack `pnpm` shim pointed at a missing cached file on `D:\Caches`. No project files were changed for this. Verification used installed `node_modules` and `npm run ...` for project scripts. Missing restored dependencies were aligned from the existing lockfile with project-contained caches:
+### Full formatting
 
-```powershell
-$env:npm_config_cache='G:\my-sitess\.cache\npm'; npm exec --package=pnpm@12.5.1 -- pnpm install --frozen-lockfile --store-dir G:\my-sitess\.cache\pnpm-store
-```
+Command: `npm run format:check`
 
-- Exit code: `0`
-- Result: lockfile verified; `gsap` and `clipboard` restored; `animejs` removed.
+- Observed exit code: `0`
+- Formatter normalization is style-only; it does not introduce new product behavior or replace imagery.
 
-## Commands
+### Diff whitespace
 
-```powershell
-npm run build
-```
+Command: `git diff --check`
 
-- Final exit code: `0`
-- Built pages: `17`
-- Diagnostics: `0` errors, `0` warnings, `6` hints.
-- Notes: Astro emitted existing hints for unused/deprecated types and a Vite directive warning for `welcome-to-docs.mdx`.
+- Observed exit code: `0`
+- No diff whitespace errors were reported.
 
-```powershell
-node --test tests/text-only-rollback.test.mjs
-```
+### Focused rollback test before build
 
-- Final exit code: `0`
-- Passed: `6`
-- Failed: `0`
-- Skipped: `0`
+Command: `node --test tests/text-only-rollback.test.mjs`
 
-```powershell
-node --test tests/*.test.mjs
-```
+- Observed exit code: `0`
+- Tests: 6
+- Passed: 6
+- Failed: 0
+- Skipped: 0
 
-- Final exit code: `0`
-- Passed: `48`
-- Failed: `0`
-- Skipped: `0`
+### Production build
 
-```powershell
-npm run test:smoke
-```
+Command: `npm run build`
 
-- Exit code: `0`
-- Expected `200` routes passed: `/`, `/products/`, four `/products/item-*` pages, `/services/`, `/blog/`, three `/blog/post-*` pages, three `/insights/insight-*` pages, `/contact/`, `/welcome-to-docs/`, `/404`.
-- Expected `404` routes passed: four `/products/hyper-*` pages and representative removed locale routes.
+- Observed exit code: `0`
+- Static output: 17 pages
+- Optimized images: 45
+- Astro errors: 0
+- Diagnostics: known restored-template Astro hints only
+- Visual assets remain the original template placeholders, as required by the text-only rollback scope.
 
-## Gate Evidence
+### Focused rollback test after build
 
-- `tests/text-only-rollback.test.mjs` verifies generated Buckleson image/logo/diagram artifacts from `f82578d` are gone, template seams are restored, original content filenames are restored, public source text is Buckleson-specific, and built output serves restored routes.
-- `tests/github-pages-base-path.test.mjs` verifies built HTML resource/navigation URLs stay under `/ThySite`.
-- `scripts/smoke.mjs` verifies restored `item-*` routes are live and visual-conversion `hyper-*` routes 404.
+Command: `node --test tests/text-only-rollback.test.mjs`
 
-## Resolved Failures During This Gate
+- Observed exit code: `0`
+- Tests: 6
+- Passed: 6
+- Failed: 0
+- Skipped: 0
+- The fresh built-output assertions passed.
 
-- Initial build failed because restored dependencies `gsap` and `clipboard` were missing from `node_modules`; frozen lockfile install fixed the local dependency state.
-- Focused rollback test initially failed on the hardcoded contact email assertion; production text was corrected to `support@buckleson.com` and the test was tightened.
-- Full suite initially failed on unbased `/contact` links in product and pricing content; content URLs were changed to `/ThySite/contact/`.
+### Full Node regression suite
 
-## Decision
+Command: `node --test tests/*.test.mjs`
 
-The local gate is green. The change is ready to commit, push, and verify through hosted CI and Pages.
+- Observed exit code: `0`
+- Tests: 48
+- Passed: 48
+- Failed: 0
+- Skipped: 0
+
+### Production smoke
+
+Command: `npm run test:smoke`
+
+- Observed exit code: `0`
+- Restored `item-*` product routes returned the expected `200` responses.
+- Removed `hyper-*` product routes returned the expected `404` responses.
+- Removed locale routes returned the expected `404` responses.
+
+## Conclusion
+
+The text-only rollback gate is green. The template structure, visual design, components, routes, and placeholder assets are restored; public copy remains Buckleson-specific. Formatter normalization is style-only, and all required checks completed with observed zero exit codes.
